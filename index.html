@@ -1,0 +1,483 @@
+﻿<!DOCTYPE html>
+<html lang="pa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ਮਾਸਟਰ ਕੈਲਕੁਲੇਟਰ + ਵਿੱਤੀ ਟੂਲ (8-ਇਨ-1)</title>
+    <style>
+        /* ----- GLOBAL & MERGED STYLES ----- */
+        :root {
+            --header-yellow: #ffff00;
+            --label-green: #92d050;
+            --result-pink: #e6b8af;
+            --tab-blue: #9eb8d6;
+            --volume-orange: #f4b084;
+            --result-gold: #ffc000;
+            --age-blue: #1d4e89;
+            --border: 1px solid #000;
+            --primary: #333;
+            --highlight: #c5be97;
+            --bg: #f4f4f4;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px; /* space for fixed footer */
+        }
+
+        /* main menu (8 buttons in specified order) */
+        #main-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            gap: 15px;
+        }
+        .menu-btn {
+            width: 320px;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid #000;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .menu-btn:hover { transform: scale(1.03); background-opacity: 0.9; }
+
+        /* tab content */
+        .tab-content { display: none; max-width: 1100px; margin: auto; width: 100%; }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 8px 16px;
+            background: #333;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* cards & rows (master) */
+        .card { border: var(--border); background: white; margin-bottom: 15px; overflow: hidden; }
+        .header { background: var(--header-yellow); padding: 6px; text-align: center; font-weight: bold; border-bottom: var(--border); }
+        .row { display: flex; border-bottom: var(--border); align-items: stretch; }
+        .label { background: var(--label-green); flex: 2.5; padding: 8px; border-right: var(--border); font-size: 14px; display: flex; align-items: center; }
+        .unit-label { background: #eee; flex: 0.8; padding: 8px; border-left: var(--border); text-align: center; font-size: 13px; font-weight: bold; }
+        .input-wrapper { flex: 2; display: flex; justify-content: center; align-items: center; background: #fff; border-right: var(--border); }
+        input { width: 75%; border: 1px solid #ccc; padding: 4px; text-align: center; font-size: 1em; outline: none; border-radius: 4px; }
+        input:focus { background: #fff9c4; border-color: #000; }
+        .res-box { background: var(--result-pink); flex: 1.5; padding: 8px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* age calc specific */
+        .age-header { background: var(--age-blue); color: white; padding: 10px; text-align: center; font-size: 1.2em; font-weight: bold; }
+        .age-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
+        .age-label { background: #003366; color: white; padding: 8px; font-weight: bold; text-align: center; }
+        .age-res { background: #fbe5d6; padding: 10px; text-align: center; font-weight: bold; border-top: var(--border); font-size: 1.2em; }
+        
+        /* financial panels (inside each fin tab) */
+        .nav-tabs { 
+            display: flex; 
+            width: 100%; 
+            max-width: 600px; 
+            margin-bottom: 10px; 
+            border: 2px solid #000; 
+            border-radius: 5px; 
+            overflow: hidden; 
+            background: #ddd; 
+        }
+        .tab-link { 
+            flex: 1; 
+            padding: 15px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 14px; 
+            transition: 0.3s; 
+            background: #ddd;
+        }
+        .tab-link.active { background: #333; color: white; }
+        .tab-panel { display: none; width: 100%; max-width: 500px; }
+        .tab-panel.active { display: flex; flex-direction: column; }
+        .header-bar { background-color: #333; color: white; text-align: center; width: 100%; padding: 10px 0; font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+        .sub-header { background-color: #000; color: white; text-align: center; padding: 5px; font-size: 15px; margin-top: 15px; }
+        .calc-card { background: white; border: 2px solid #000; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .calc-card table { border-collapse: collapse; width: 100%; }
+        .calc-card td { border: 1px solid #777; padding: 8px; text-align: center; font-size: 16px; width: 50%; }
+        .calc-card input { width: 80%; padding: 5px; text-align: center; border: 1px solid #bbb; font-size: 16px; border-radius: 3px; }
+        .result-row { background-color: var(--highlight); font-weight: bold; }
+        .result-val { color: #d32f2f; font-weight: bold; }
+        .emi-header { background-color: #4a7ebb; color: white; font-size: 20px; font-weight: bold; padding: 10px; text-align: center; }
+        .emi-p { background-color: #9bbb59; } .emi-t { background-color: #ebf1de; }
+        .emi-r { background-color: #ccc0da; } .emi-res { background-color: #8db4e2; }
+        .emi-a { background-color: #c4d79b; } .emi-i { background-color: #fabf8f; }
+        .calc-btn { margin: 10px; padding: 8px 20px; cursor: pointer; background: #333; color: white; border: none; border-radius: 4px; }
+
+        /* recurring deposit card style */
+        .rd-card { background: #f9f1d9; border: 3px solid #5a3e1b; border-radius: 20px; padding: 25px; max-width: 500px; margin: auto; box-shadow: 0 8px 12px rgba(0,0,0,0.2); }
+        .rd-title { font-size: 26px; font-weight: bold; color: #1e3c5c; margin-bottom: 15px; text-align: center; border-bottom: 2px dashed #a67c52; padding-bottom: 10px; }
+        .rd-field { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; background: #fff8e7; padding: 12px; border-radius: 40px; border: 1px solid #b98c5f; }
+        .rd-field label { font-weight: bold; font-size: 18px; color: #2d4b2d; margin-left: 10px; }
+        .rd-field input { width: 60%; border: none; background: transparent; font-size: 18px; font-weight: bold; text-align: right; padding: 5px 15px; border-bottom: 2px solid #b87333; border-radius: 0; }
+        .rd-field input:focus { outline: none; border-bottom-color: #c0392b; }
+        .rd-btn { background: #e67e22; color: white; border: none; font-size: 22px; font-weight: bold; padding: 15px 30px; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 5px 0 #b45f1b; transition: 0.1s; margin: 20px 0; }
+        .rd-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b45f1b; }
+        .rd-result { background: #ead8c0; border-radius: 30px; padding: 15px 20px; font-size: 20px; font-weight: bold; border: 2px solid #8b5a2b; }
+        .rd-result p { margin: 8px 0; display: flex; justify-content: space-between; }
+        .rd-result span { color: #b33100; background: white; padding: 5px 20px; border-radius: 40px; border: 1px solid #a0522d; }
+
+        /* footer credit line */
+        .credit-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 9px;
+            background-color: #222;
+            color: #ffcc00;
+            padding: 4px 0;
+            letter-spacing: 1px;
+            border-top: 1px solid #ffcc00;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <!-- MAIN MENU: exactly 8 buttons in order: 1.SI, 2.CI, 3.EMI, 4.RD, 5.Date, 6.PL, 7.SD, 8.Volume -->
+    <div id="main-menu">        
+        <!-- 1. ਸਧਾਰਨ ਵਿਆਜ -->
+        <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('si-full-tab')">1. 💵 ਸਧਾਰਨ ਵਿਆਜ (Simple)</div>
+        <!-- 2. ਮਿਸ਼ਰਤ ਵਿਆਜ -->
+        <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('ci-full-tab')">2. 📈 ਮਿਸ਼ਰਤ ਵਿਆਜ (Compound)</div>
+        <!-- 3. EMI -->
+        <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('emi-full-tab')">3. 🏦 EMI ਕੈਲਕੁਲੇਟਰ</div>
+        <!-- 4. RD/SIP -->
+        <div class="menu-btn" style="background-color: #e6b800; color: #000;" onclick="openTab('rd-full-tab')">4. 💰 RD / SIP (ਆਵਰਤੀ ਜਮ੍ਹਾਂ)</div>
+        <!-- 5. Date & Time -->
+        <div class="menu-btn" style="background-color: #fbe5d6;" onclick="openTab('dt-tab')">5. 📅 ਮਿਤੀ & ਸਮਾਂ (Date & Time)</div>
+        <!-- 6. Profit & Loss -->
+        <div class="menu-btn" style="background-color: var(--label-green);" onclick="openTab('pl-tab')">6. 💹 ਲਾਭ / ਹਾਨੀ (Profit & Loss)</div>
+        <!-- 7. Speed & Distance -->
+        <div class="menu-btn" style="background-color: var(--tab-blue);" onclick="openTab('sd-tab')">7. ⚡ ਗਤੀ & ਦੂਰੀ (Speed & Distance)</div>
+        <!-- 8. Find Volume & Total Price -->
+        <div class="menu-btn" style="background-color: var(--volume-orange);" onclick="openTab('vol-tab')">8. 📦 ਵਾਲੀਅਮ & ਕੁੱਲ ਕੀਮਤ (Volume+Price)</div>
+    </div>
+
+    <!-- ========== ALL TABS (content unchanged, order irrelevant) ========== -->
+    <!-- Profit & Loss tab (6) -->
+    <div id="pl-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div class="grid-2">
+            <div class="card"><div class="header">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਲਾਭ</div><div class="input-wrapper"><input type="number" id="p1_v" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p1_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r1"></div></div></div>
+            <div class="card"><div class="header">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਹਾਨੀ</div><div class="input-wrapper"><input type="number" id="l2_v" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l2_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r2"></div></div></div>
+            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p3_p" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p3_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r3"></div></div></div>
+            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p4_p" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p4_s" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r4"></div></div></div>
+            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l5_p" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l5_c" value="100" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r5"></div></div></div>
+            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l6_p" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l6_s" value="100" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r6"></div></div></div>
+            <div class="card"><div class="header">ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_s" value="220" oninput="calcPL()"></div></div><div class="row"><div class="label">ਨਤੀਜਾ =</div><div class="res-box" id="r7"></div></div></div>
+        </div>
+    </div>
+
+    <!-- Volume tab (8) -->
+    <div id="vol-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div class="card" style="max-width: 600px; margin: auto;">
+            <div class="header" style="background: var(--volume-orange);">Find Volume & Total Price</div>
+            <div class="row" style="background: var(--tab-blue); font-weight: bold; text-align: center;"><div class="label" style="background: transparent;">Dimension</div><div style="flex:1; border-right: var(--border); padding: 8px;">Foot</div><div style="flex:1; padding: 8px;">inch</div></div>
+            <div class="row"><div class="label">Width</div><div class="input-wrapper"><input type="number" id="v_wf" value="0" oninput="calcVol()"></div><div class="input-wrapper"><input type="number" id="v_wi" value="0" oninput="calcVol()"></div></div>
+            <div class="row"><div class="label">Length</div><div class="input-wrapper"><input type="number" id="v_lf" value="0" oninput="calcVol()"></div><div class="input-wrapper"><input type="number" id="v_li" value="0" oninput="calcVol()"></div></div>
+            <div class="row"><div class="label">Height</div><div class="input-wrapper"><input type="number" id="v_hf" value="0" oninput="calcVol()"></div><div class="input-wrapper"><input type="number" id="v_hi" value="0" oninput="calcVol()"></div></div>
+            <div class="row"><div class="label">Volume (cubic foot)</div><div class="res-box" id="v_res" style="background: var(--result-gold); flex: 2.1;">0.00</div></div>
+            <div class="row"><div class="label">Price per Sq Foot</div><div class="input-wrapper" style="flex: 2.1;"><input type="number" id="v_pr" value="0" oninput="calcVol()"></div></div>
+            <div class="row"><div class="label">Total Price</div><div class="res-box" id="v_tot" style="background: var(--result-gold); flex: 2.1;">0.00</div></div>
+        </div>
+    </div>
+
+    <!-- Speed & Distance tab (7) -->
+    <div id="sd-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="header">KM / H Calculations</div>
+                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d1" value="45" oninput="calcSD()"></div><div class="unit-label">km</div></div>
+                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s1" value="30" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (h) =</div><div class="res-box" id="st1"></div><div class="unit-label">h</div></div>
+                <hr>
+                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d2" value="100" oninput="calcSD()"></div><div class="unit-label">km</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t2" value="1" oninput="calcSD()"></div><div class="unit-label">h</div></div>
+                <div class="row"><div class="label">ਗਤੀ (km/h) =</div><div class="res-box" id="ss2"></div><div class="unit-label">km/h</div></div>
+                <hr>
+                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s3" value="50" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t3" value="1" oninput="calcSD()"></div><div class="unit-label">h</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (km) =</div><div class="res-box" id="sd3"></div><div class="unit-label">km</div></div>
+            </div>
+            <div class="card">
+                <div class="header">M / S Calculations</div>
+                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm1" value="200" oninput="calcSD()"></div><div class="unit-label">M</div></div>
+                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm1" value="5" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (S) =</div><div class="res-box" id="tm1" style="background: #cd706e; color: white;"></div><div class="unit-label">S</div></div>
+                <hr>
+                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm2" value="100" oninput="calcSD()"></div><div class="unit-label">M</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm2" value="10" oninput="calcSD()"></div><div class="unit-label">S</div></div>
+                <div class="row"><div class="label">ਗਤੀ (M/S) =</div><div class="res-box" id="sm2" style="background: #cd706e; color: white;"></div><div class="unit-label">M/S</div></div>
+                <hr>
+                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm3" value="10" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm3" value="10" oninput="calcSD()"></div><div class="unit-label">S</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (M) =</div><div class="res-box" id="dm3" style="background: #cd706e; color: white;"></div><div class="unit-label">M</div></div>
+            </div>
+        </div>
+        <div class="card" style="max-width: 500px; margin: 10px auto;">
+            <div class="header">Unit Converter</div>
+            <div class="row"><div class="label">KM/H to M/S</div><div class="input-wrapper"><input type="number" id="c_km" value="54" oninput="calcSD()"></div><div class="res-box" id="c_ms"></div></div>
+            <div class="row"><div class="label">M/S to KM/H</div><div class="input-wrapper"><input type="number" id="c_m" value="15" oninput="calcSD()"></div><div class="res-box" id="c_k"></div></div>
+        </div>
+    </div>
+
+    <!-- Date & Time tab (5) -->
+    <div id="dt-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="age-header">AGE CALCULATOR</div>
+                <div class="age-row"><div class="age-label">Insert Date of Birth</div><div class="age-input"><input type="date" id="dob" value="1978-04-22" oninput="calcDT()"></div></div>
+                <div class="age-row"><div class="age-label">Current Date</div><div class="age-input"><input type="date" id="curr_date" oninput="calcDT()"></div></div>
+                <div class="age-res" id="age_result">47 Years 9 Months 30 Days</div>
+            </div>
+            <div class="card">
+                <div class="header" style="background: #00b050; color: #fff;">DATE DIFFERENCE</div>
+                <div class="row"><div class="label">Starting Date</div><div class="input-wrapper"><input type="date" id="d_start" value="2019-01-01" oninput="calcDT()"></div></div>
+                <div class="row"><div class="label">End Date</div><div class="input-wrapper"><input type="date" id="d_end" value="2020-01-01" oninput="calcDT()"></div></div>
+                <div class="row"><div class="label">Days Difference</div><div class="res-box" id="days_diff">365</div></div>
+            </div>
+            <div class="card">
+                <div class="header" style="background: #000; color: #fff;">Add Hours & Minutes</div>
+                <div class="row"><div class="label">Start Time</div><input type="time" id="start_time" value="10:00" oninput="calcDT()" style="width:100%;"><input type="text" id="add_time" value="04:25" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Final Time</div><div class="res-box" id="final_time">02:25 PM</div></div>
+                <div class="header" style="background: #000; color: #fff;">Subtract Time</div>
+                <div class="row"><div class="label">End Time</div><input type="time" id="end_time" value="14:25" oninput="calcDT()" style="width:100%;"><input type="text" id="sub_time" value="02:25" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Starting Time</div><div class="res-box" id="start_time_res">12:00 PM</div></div>
+            </div>
+            <div class="card">
+                <div class="header" style="background: #000; color: #fff;">Find Nth Day</div>
+                <div class="row"><div class="label">Date</div><input type="date" id="nth_start" value="2020-01-01" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Add Days</div><input type="number" id="nth_add" value="277" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Result</div><div class="res-box" id="nth_res">04-Oct-2020</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple Interest tab (1) -->
+    <div id="si-full-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <div class="header-bar">ਸਧਾਰਨ ਵਿਆਜ (ਸਿਰਫ਼)</div>
+            <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p1" value="100"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r1" value="10"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t1" value="2"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_si1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_I()">Calculate</button></center></div>
+            <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r2" value="10"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t2" value="2"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i2" value="20"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_si2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_P()">Calculate</button></center></div>
+            <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p3" value="100"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r3" value="10"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i3" value="20"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_si3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_T()">Calculate</button></center></div>
+            <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p4" value="100"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t4" value="2"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i4" value="20"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_si4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_R()">Calculate</button></center></div>
+        </div>
+    </div>
+
+    <!-- Compound Interest tab (2) -->
+    <div id="ci-full-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <div class="header-bar">ਮਿਸ਼ਰਤ ਵਿਆਜ (ਸਿਰਫ਼)</div>
+            <div class="sub-header">ਕੁੱਲਧਨ (A) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p1" value="100"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r1" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t1" value="6"></td></tr><tr class="result-row"><td>ਕੁੱਲਧਨ (A) =</td><td><span id="res_ci1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_A()">Calculate</button></center></div>
+            <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p2" value="100"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a2" value="197"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r2" value="12"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_ci2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_T()">Calculate</button></center></div>
+            <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p3" value="100"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a3" value="197"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t3" value="6"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_ci3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_R()">Calculate</button></center></div>
+            <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a4" value="197"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r4" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t4" value="6"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_ci4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_P()">Calculate</button></center></div>
+            <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p5" value="100"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r5" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t5" value="6"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_ci5" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_I()">Calculate</button></center></div>
+        </div>
+    </div>
+
+    <!-- EMI tab (3) -->
+    <div id="emi-full-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <div class="emi-header">EMI ਕੈਲਕੁਲੇਟਰ</div>
+            <div class="calc-card"><table><tr class="emi-p"><td>Principal</td><td><input type="number" id="emi_p" value="150000"></td></tr><tr class="emi-t"><td>time in years</td><td><input type="number" id="emi_t" value="5"></td></tr><tr class="emi-r"><td>rate (%)</td><td><input type="number" id="emi_r" value="12"></td></tr><tr class="emi-res"><td>EMI</td><td><span id="res_emi" class="result-val">?</span></td></tr><tr class="emi-a"><td>Total payable ammount=</td><td><span id="res_emi_a" class="result-val">?</span></td></tr><tr class="emi-i"><td>total payable intrest=</td><td><span id="res_emi_i" class="result-val">?</span></td></tr></table><center><button class="calc-btn" style="background:#4a7ebb" onclick="calcEMI()">Calculate EMI</button></center></div>
+        </div>
+    </div>
+
+    <!-- RD / SIP tab (4) -->
+    <div id="rd-full-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div class="rd-card">
+            <div class="rd-title">💰 RD / SIP (ਆਵਰਤੀ ਜਮ੍ਹਾਂ)</div>
+            <div class="rd-field">
+                <label>📅 ਮਹੀਨਾਵਾਰ ਕਿਸ਼ਤ</label>
+                <input type="number" id="rd_inst" value="5000" step="100">
+            </div>
+            <div class="rd-field">
+                <label>📊 ਸਲਾਨਾ ਵਿਆਜ ਦਰ (%)</label>
+                <input type="number" id="rd_rate" value="7.5" step="0.1">
+            </div>
+            <div class="rd-field">
+                <label>⏱️ ਸਮਾਂ (ਸਾਲ)</label>
+                <input type="number" id="rd_years" value="5" step="0.5">
+            </div>
+            <button class="rd-btn" onclick="calcRD()">🔢 Calculate Maturity</button>
+            <div class="rd-result">
+                <p><span>ਨਿਵੇਸ਼ ਕੀਤਾ (Invested) :</span> <span id="rd_invested">0</span></p>
+                <p><span>ਪਰਿਪੱਕਤਾ ਰਾਸ਼ੀ (Maturity) :</span> <span id="rd_maturity">0</span></p>
+            </div>
+            <p style="font-size:14px; text-align:center; color:#5a3e1b;">* ਫਾਰਮੂਲਾ: A = P * ((1+r)^n - 1)/r * (1+r) [ਕਿਸ਼ਤ ਮਹੀਨੇ ਦੇ ਸ਼ੁਰੂ 'ਚ]</p>
+        </div>
+    </div>
+
+    <!-- ===== CREDIT FOOTER (9px font) ===== -->
+    <div class="credit-footer">By Raj Kamboj 9465428299</div>
+
+    <script>
+        // ---------- MASTER CALCULATOR FUNCTIONS (original) ----------
+        function openTab(tabId) {
+            document.getElementById('main-menu').style.display = 'none';
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+            // recalc all relevant
+            if (typeof calcPL === 'function') calcPL();
+            if (typeof calcVol === 'function') calcVol();
+            if (typeof calcSD === 'function') calcSD();
+            if (typeof calcDT === 'function') calcDT();
+            if(tabId === 'rd-full-tab' && typeof calcRD === 'function') calcRD();
+        }
+
+        function showMenu() {
+            document.getElementById('main-menu').style.display = 'flex';
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+        }
+
+        const v = (id) => parseFloat(document.getElementById(id)?.value) || 0;
+        const s = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        function calcPL() {
+            s('r1', v('p1_c') ? ((v('p1_v')/v('p1_c'))*100).toFixed(2)+'%' : '0%');
+            s('r2', v('l2_c') ? ((v('l2_v')/v('l2_c'))*100).toFixed(2)+'%' : '0%');
+            s('r3', (v('p3_c') * (1 + v('p3_p')/100)).toFixed(2));
+            s('r4', (v('p4_s') / (1 + v('p4_p')/100)).toFixed(2));
+            s('r5', (v('l5_c') * (1 - v('l5_p')/100)).toFixed(2));
+            s('r6', (1 - v('l6_p')/100) !== 0 ? (v('l6_s') / (1 - v('l6_p')/100)).toFixed(2) : "Err");
+            let d7 = v('p7_s') - v('p7_c');
+            s('r7', v('p7_c') ? ((Math.abs(d7)/v('p7_c'))*100).toFixed(2) + '% ' + (d7 >= 0 ? 'Profit' : 'Loss') : '0%');
+        }
+
+        function calcVol() {
+            let width = (v('v_wf')*12)+v('v_wi'), len = (v('v_lf')*12)+v('v_li'), h = (v('v_hf')*12)+v('v_hi');
+            let cf = (width*len*h)/1728;
+            s('v_res', cf.toFixed(2));
+            s('v_tot', (cf * v('v_pr')).toFixed(2));
+        }
+
+        function calcSD() {
+            s('st1', v('s1') ? (v('d1')/v('s1')).toFixed(2) : '0');
+            s('ss2', v('t2') ? (v('d2')/v('t2')).toFixed(2) : '0');
+            s('sd3', (v('s3')*v('t3')).toFixed(2));
+            s('tm1', v('sm1') ? (v('dm1')/v('sm1')).toFixed(2) : '0');
+            s('sm2', v('tm2') ? (v('dm2')/v('tm2')).toFixed(2) : '0');
+            s('dm3', (v('sm3')*v('tm3')).toFixed(2));
+            s('c_ms', (v('c_km') * 5/18).toFixed(2) + " m/s");
+            s('c_k', (v('c_m') * 18/5).toFixed(2) + " km/h");
+        }
+
+        function calcDT() {
+            let dob = new Date(document.getElementById('dob').value);
+            let now = new Date(document.getElementById('curr_date').value || new Date());
+            if(!isNaN(dob.getTime())){
+                let y = now.getFullYear() - dob.getFullYear(), m = now.getMonth() - dob.getMonth(), d = now.getDate() - dob.getDate();
+                if(d < 0){ m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+                if(m < 0){ y--; m += 12; }
+                s('age_result', `${y} Years ${m} Months ${d} Days`);
+            }
+            s('days_diff', Math.round((new Date(document.getElementById('d_end').value) - new Date(document.getElementById('d_start').value)) / 86400000));
+            
+            const fmt = (tot) => { let h = Math.floor(tot/60)%24, m = tot%60, p = h>=12?'PM':'AM'; return `${String(h%12||12).padStart(2,'0')}:${String(m).padStart(2,'0')} ${p}`; };
+            let [sh, sm] = (document.getElementById('start_time').value || '0:0').split(':').map(Number);
+            let [ah, am] = (document.getElementById('add_time').value || "0:0").split(':').map(Number);
+            s('final_time', fmt((sh*60+sm)+(ah*60+(am||0))));
+            
+            let [eh, em] = (document.getElementById('end_time').value || '0:0').split(':').map(Number);
+            let [bh, bm] = (document.getElementById('sub_time').value || "0:0").split(':').map(Number);
+            s('start_time_res', fmt((eh*60+em)-(bh*60+(bm||0))));
+
+            let nd = new Date(document.getElementById('nth_start').value);
+            nd.setDate(nd.getDate() + (parseInt(document.getElementById('nth_add').value) || 0));
+            s('nth_res', nd.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}).replace(/ /g, '-'));
+        }
+
+        // SI functions
+        function calcSI_I() { let p = v('si_p1'), r = v('si_r1'), t = v('si_t1'); s('res_si1', (p * r * t) / 100); }
+        function calcSI_P() { let r = v('si_r2'), t = v('si_t2'), i = v('si_i2'); s('res_si2', ((i * 100) / (r * t)).toFixed(2)); }
+        function calcSI_T() { let p = v('si_p3'), r = v('si_r3'), i = v('si_i3'); s('res_si3', ((i * 100) / (p * r)).toFixed(2)); }
+        function calcSI_R() { let p = v('si_p4'), t = v('si_t4'), i = v('si_i4'); s('res_si4', ((i * 100) / (p * t)).toFixed(2) + "%"); }
+
+        // CI functions
+        function calcCI_A() { let p = v('ci_p1'), r = v('ci_r1'), t = v('ci_t1'); s('res_ci1', (p * Math.pow((1 + r/100), t)).toFixed(2)); }
+        function calcCI_T() { let p = v('ci_p2'), a = v('ci_a2'), r = v('ci_r2'); s('res_ci2', (Math.log(a / p) / Math.log(1 + r / 100)).toFixed(2)); }
+        function calcCI_R() { let p = v('ci_p3'), a = v('ci_a3'), t = v('ci_t3'); s('res_ci3', ((Math.pow((a / p), (1 / t)) - 1) * 100).toFixed(2) + "%"); }
+        function calcCI_P() { let a = v('ci_a4'), r = v('ci_r4'), t = v('ci_t4'); s('res_ci4', (a / Math.pow((1 + r/100), t)).toFixed(2)); }
+        function calcCI_I() { let p = v('ci_p5'), r = v('ci_r5'), t = v('ci_t5'); let a = p * Math.pow((1 + r/100), t); s('res_ci5', (a - p).toFixed(2)); }
+
+        // EMI
+        function calcEMI() { 
+            let P = v('emi_p'), R = v('emi_r') / (12 * 100), N = v('emi_t') * 12; 
+            let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1); 
+            s('res_emi', Math.round(emi).toLocaleString()); 
+            s('res_emi_a', Math.round(emi * N).toLocaleString()); 
+            s('res_emi_i', Math.round((emi * N) - P).toLocaleString()); 
+        }
+
+        // RD calculator
+        function calcRD() {
+            let P = v('rd_inst');
+            let r_annual = v('rd_rate') / 100;
+            let years = v('rd_years');
+            let n = years * 12;
+            let r_monthly = r_annual / 12;
+
+            if (r_monthly === 0) {
+                let simple = P * n;
+                s('rd_invested', simple.toFixed(0));
+                s('rd_maturity', simple.toFixed(0));
+                return;
+            }
+
+            let factor = Math.pow(1 + r_monthly, n);
+            let maturity = P * ((factor - 1) / r_monthly) * (1 + r_monthly);
+            let invested = P * n;
+
+            s('rd_invested', Math.round(invested).toLocaleString());
+            s('rd_maturity', Math.round(maturity).toLocaleString());
+        }
+
+        // On load: set current date and compute RD default
+        window.onload = () => { 
+            if (document.getElementById('curr_date')) document.getElementById('curr_date').valueAsDate = new Date();
+            calcRD(); 
+        };
+    </script>
+</body>
+</html>
