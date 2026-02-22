@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ਮਾਸਟਰ ਕੈਲਕੁਲੇਟਰ + ਵਿੱਤੀ ਟੂਲ (8-ਇਨ-1)</title>
+    <title>ਮਾਸਟਰ ਕੈਲਕੁਲੇਟਰ + ਵਿੱਤੀ ਟੂਲ (11-ਇਨ-1)</title>
     <style>
         /* ----- GLOBAL & MERGED STYLES ----- */
         :root {
@@ -18,6 +18,10 @@
             --primary: #333;
             --highlight: #c5be97;
             --bg: #f4f4f4;
+            --header-bg: #000000;
+            --text-header-bg: #a3966a;
+            --input-blue: #cfe2f3;
+            --final-res-bg: #c2c1a5;
         }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -32,7 +36,7 @@
             padding-bottom: 60px; /* space for fixed footer */
         }
 
-        /* main menu (8 buttons in specified order) */
+        /* main menu (11 buttons) */
         #main-menu {
             display: flex;
             flex-direction: column;
@@ -136,6 +140,21 @@
         .rd-result p { margin: 8px 0; display: flex; justify-content: space-between; }
         .rd-result span { color: #b33100; background: white; padding: 5px 20px; border-radius: 40px; border: 1px solid #a0522d; }
 
+        /* New styles from 01.html */
+        .math-table {
+            width: 100%; border-collapse: collapse; margin-bottom: 20px;
+            background: white; border: 1px solid #999;
+        }
+        .math-table th { background: var(--header-bg); color: white; padding: 10px; font-size: 1.1rem; }
+        .math-table td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        .math-table input { width: 90%; border: 1px solid #ccc; padding: 4px; text-align: center; font-size: 1rem; outline: none; border-radius: 4px; }
+        .math-table input:focus { background: #fff9c4; }
+        .res-row { background-color: var(--result-pink); font-weight: bold; }
+        .txt-head { background-color: var(--text-header-bg); color: white; font-weight: bold; }
+        .blue-in { background-color: var(--input-blue); }
+        .gold-res { background-color: var(--final-res-bg); font-weight: bold; }
+        .output-text { font-style: italic; min-height: 20px; word-break: break-all; padding: 10px; }
+
         /* footer credit line */
         .credit-footer {
             position: fixed;
@@ -157,7 +176,7 @@
 </head>
 <body>
 
-    <!-- MAIN MENU: exactly 8 buttons in order: 1.SI, 2.CI, 3.EMI, 4.RD, 5.Date, 6.PL, 7.SD, 8.Volume -->
+    <!-- MAIN MENU: 11 buttons (original 8 + 3 new from 01.html) -->
     <div id="main-menu">        
         <!-- 1. ਸਧਾਰਨ ਵਿਆਜ -->
         <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('si-full-tab')">1. 💵 ਸਧਾਰਨ ਵਿਆਜ (Simple)</div>
@@ -175,9 +194,15 @@
         <div class="menu-btn" style="background-color: var(--tab-blue);" onclick="openTab('sd-tab')">7. ⚡ ਗਤੀ & ਦੂਰੀ (Speed & Distance)</div>
         <!-- 8. Find Volume & Total Price -->
         <div class="menu-btn" style="background-color: var(--volume-orange);" onclick="openTab('vol-tab')">8. 📦 ਵਾਲੀਅਮ & ਕੁੱਲ ਕੀਮਤ (Volume+Price)</div>
+        <!-- NEW BUTTON 9: Math Tools (LCM, HCF, Mode, Log) -->
+        <div class="menu-btn" style="background-color: #9eb8d6;" onclick="openTab('math-tab')">9. 🔢 ਗਣਿਤ ਟੂਲ (Math Tools)</div>
+        <!-- NEW BUTTON 10: Text Utils -->
+        <div class="menu-btn" style="background-color: #a3966a; color: white;" onclick="openTab('text-tab')">10. 📝 ਟੈਕਸਟ ਯੂਟਿਲ (Text Utils)</div>
+        <!-- NEW BUTTON 11: Trig & Roots -->
+        <div class="menu-btn" style="background-color: #d99a94;" onclick="openTab('trig-tab')">11. 📐 ਤਿਕੋਣਮਿਤੀ & ਮੂਲ (Trig & Roots)</div>
     </div>
 
-    <!-- ========== ALL TABS (content unchanged, order irrelevant) ========== -->
+    <!-- ========== ALL TABS ========== -->
     <!-- Profit & Loss tab (6) -->
     <div id="pl-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
@@ -349,7 +374,92 @@
         </div>
     </div>
 
-    <!-- ===== CREDIT FOOTER (9px font) ===== -->
+    <!-- NEW TAB 9: Math Tools (from 01.html) -->
+    <div id="math-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <table class="math-table">
+                <tr><th colspan="2">Find LCM</th></tr>
+                <tr><td><input type="number" class="lcm-in" value="10" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="20" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" class="lcm-in" value="30" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="40" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" class="lcm-in" value="50" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="60" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>LCM =</td><td id="lcm-res">600</td></tr>
+            </table>
+
+            <table class="math-table">
+                <tr><th colspan="2">Find HCF</th></tr>
+                <tr><td><input type="number" id="h1" value="325" oninput="runAllMath()"></td><td><input type="number" id="h2" value="25" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>HCF =</td><td id="hcf-res">25</td></tr>
+            </table>
+
+            <table class="math-table">
+                <tr><th colspan="2">Find Mode (Remainder)</th></tr>
+                <tr><td><input type="number" id="r1" value="35" oninput="runAllMath()"></td><td><input type="number" id="r2" value="5" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>Remainder =</td><td id="rem-res">0</td></tr>
+            </table>
+
+            <table class="math-table">
+                <tr><th colspan="2">Find Log</th></tr>
+                <tr><td>Add a Number</td><td><input type="number" id="log-in" value="100" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>Log (base 10) =</td><td id="log-res">2.0000</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- NEW TAB 10: Text Utils (from 01.html) -->
+    <div id="text-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <table class="math-table">
+                <tr><td class="txt-head">Add Data</td></tr>
+                <tr><td><input type="text" id="t-in" value="what are you doing.." oninput="runText()"></td></tr>
+                <tr><td class="txt-head">Trim</td></tr>
+                <tr><td class="output-text" id="t-trim">what are you doing..</td></tr>
+                <tr><td class="txt-head">UPPER</td></tr>
+                <tr><td class="output-text" id="t-up">WHAT ARE YOU DOING..</td></tr>
+                <tr><td class="txt-head">lower</td></tr>
+                <tr><td class="output-text" id="t-low">what are you doing..</td></tr>
+                <tr><td class="txt-head">Proper Case</td></tr>
+                <tr><td class="output-text" id="t-prop">What Are You Doing..</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- NEW TAB 11: Trig & Roots (from 01.html) with SEC and COT added -->
+    <div id="trig-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <table class="math-table">
+                <tr><th colspan="2">Find Sin, Cos, Tan, Sec, Cot, Cosec</th></tr>
+                <tr class="blue-in">
+                    <td>Number (0-360)</td>
+                    <td><input type="number" id="trig-deg" value="45" oninput="runTrigRoots()"></td>
+                </tr>
+                <tr class="res-row"><td>sin =</td><td id="s-res">0.7071</td></tr>
+                <tr class="res-row"><td>cos =</td><td id="c-res">0.7071</td></tr>
+                <tr class="res-row"><td>tan =</td><td id="t-res">1.0000</td></tr>
+                <tr class="res-row"><td>cosec =</td><td id="csc-res">1.4142</td></tr>
+                <tr class="res-row"><td>sec =</td><td id="sec-res">1.4142</td></tr>
+                <tr class="res-row"><td>cot =</td><td id="cot-res">1.0000</td></tr>
+            </table>
+
+            <table class="math-table">
+                <tr><th colspan="2">Square & Cube Roots</th></tr>
+                <tr><td>Number</td><td><input type="number" id="root-base" value="64" oninput="runTrigRoots()"></td></tr>
+                <tr class="res-row"><td>Square Root</td><td id="sq-res">8.0000</td></tr>
+                <tr class="res-row"><td>Cube Root</td><td id="cb-res">4.0000</td></tr>
+            </table>
+
+            <table class="math-table">
+                <tr><th colspan="2" class="res-row" style="color: black;">Find Custom Root (nth)</th></tr>
+                <tr><td>Number</td><td><input type="number" id="cust-num" value="5" oninput="runTrigRoots()"></td></tr>
+                <tr><td>Root Value (n)</td><td><input type="number" id="cust-root" value="3" oninput="runTrigRoots()"></td></tr>
+                <tr class="gold-res"><td>Result =</td><td id="cust-res">1.7100</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== CREDIT FOOTER ===== -->
     <div class="credit-footer">By Raj Kamboj 9465428299</div>
 
     <script>
@@ -364,6 +474,9 @@
             if (typeof calcSD === 'function') calcSD();
             if (typeof calcDT === 'function') calcDT();
             if(tabId === 'rd-full-tab' && typeof calcRD === 'function') calcRD();
+            if(tabId === 'math-tab' && typeof runAllMath === 'function') runAllMath();
+            if(tabId === 'text-tab' && typeof runText === 'function') runText();
+            if(tabId === 'trig-tab' && typeof runTrigRoots === 'function') runTrigRoots();
         }
 
         function showMenu() {
@@ -473,10 +586,77 @@
             s('rd_maturity', Math.round(maturity).toLocaleString());
         }
 
-        // On load: set current date and compute RD default
+        // ---------- NEW FUNCTIONS FROM 01.HTML ----------
+        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+        const lcm = (a, b) => (a === 0 || b === 0) ? 0 : Math.abs(a * b) / gcd(a, b);
+
+        function runAllMath() {
+            // LCM
+            const inputs = document.querySelectorAll('.lcm-in');
+            const vals = Array.from(inputs).map(i => parseInt(i.value) || 0).filter(v => v !== 0);
+            document.getElementById('lcm-res').innerText = vals.length ? vals.reduce((a, b) => lcm(a, b)) : 0;
+
+            // HCF
+            let h1 = Math.abs(parseInt(document.getElementById('h1').value)) || 0;
+            let h2 = Math.abs(parseInt(document.getElementById('h2').value)) || 0;
+            document.getElementById('hcf-res').innerText = gcd(h1, h2);
+
+            // Remainder
+            let r1 = parseInt(document.getElementById('r1').value) || 0;
+            let r2 = parseInt(document.getElementById('r2').value) || 1;
+            document.getElementById('rem-res').innerText = r1 % r2;
+
+            // Log
+            let lVal = parseFloat(document.getElementById('log-in').value);
+            document.getElementById('log-res').innerText = (lVal > 0) ? Math.log10(lVal).toFixed(4) : "Error";
+        }
+
+        function runText() {
+            let val = document.getElementById('t-in').value;
+            document.getElementById('t-trim').innerText = val.trim();
+            document.getElementById('t-up').innerText = val.toUpperCase();
+            document.getElementById('t-low').innerText = val.toLowerCase();
+            document.getElementById('t-prop').innerText = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+        }
+
+        function runTrigRoots() {
+            // Trig
+            let deg = parseFloat(document.getElementById('trig-deg').value) || 0;
+            let rad = deg * (Math.PI / 180);
+            let s_val = Math.sin(rad), c_val = Math.cos(rad), t_val = Math.tan(rad);
+            
+            // Calculate all trig functions
+            document.getElementById('s-res').innerText = s_val.toFixed(4);
+            document.getElementById('c-res').innerText = c_val.toFixed(4);
+            document.getElementById('t-res').innerText = Math.abs(t_val) > 1e10 ? "∞" : t_val.toFixed(4);
+            
+            // Cosecant (csc)
+            document.getElementById('csc-res').innerText = Math.abs(s_val) < 1e-4 ? "∞" : (1/s_val).toFixed(4);
+            
+            // Secant (sec) - NEW
+            document.getElementById('sec-res').innerText = Math.abs(c_val) < 1e-4 ? "∞" : (1/c_val).toFixed(4);
+            
+            // Cotangent (cot) - NEW
+            document.getElementById('cot-res').innerText = (Math.abs(t_val) < 1e-4 || Math.abs(t_val) > 1e10) ? "∞" : (1/t_val).toFixed(4);
+
+            // Std Roots
+            let rb = parseFloat(document.getElementById('root-base').value) || 0;
+            document.getElementById('sq-res').innerText = rb >= 0 ? Math.sqrt(rb).toFixed(4) : "Error";
+            document.getElementById('cb-res').innerText = Math.cbrt(rb).toFixed(4);
+
+            // Custom Root
+            let cn = parseFloat(document.getElementById('cust-num').value) || 0;
+            let cr = parseFloat(document.getElementById('cust-root').value) || 1;
+            document.getElementById('cust-res').innerText = (cn < 0 && cr % 2 === 0) ? "Error" : Math.pow(cn, 1/cr).toFixed(4);
+        }
+
+        // On load: set current date and compute default values
         window.onload = () => { 
             if (document.getElementById('curr_date')) document.getElementById('curr_date').valueAsDate = new Date();
-            calcRD(); 
+            calcRD();
+            runAllMath();
+            runText();
+            runTrigRoots();
         };
     </script>
 </body>
