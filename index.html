@@ -33,10 +33,9 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
-            padding-bottom: 60px; /* space for fixed footer */
+            padding-bottom: 60px;
         }
 
-        /* main menu (11 buttons) */
         #main-menu {
             display: flex;
             flex-direction: column;
@@ -58,7 +57,6 @@
         }
         .menu-btn:hover { transform: scale(1.03); background-opacity: 0.9; }
 
-        /* tab content */
         .tab-content { display: none; max-width: 1100px; margin: auto; width: 100%; }
         .back-btn {
             display: inline-block;
@@ -71,7 +69,6 @@
             font-weight: bold;
         }
 
-        /* cards & rows (master) */
         .card { border: var(--border); background: white; margin-bottom: 15px; overflow: hidden; }
         .header { background: var(--header-yellow); padding: 6px; text-align: center; font-weight: bold; border-bottom: var(--border); }
         .row { display: flex; border-bottom: var(--border); align-items: stretch; }
@@ -83,13 +80,11 @@
         .res-box { background: var(--result-pink); flex: 1.5; padding: 8px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        /* age calc specific */
         .age-header { background: var(--age-blue); color: white; padding: 10px; text-align: center; font-size: 1.2em; font-weight: bold; }
         .age-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
         .age-label { background: #003366; color: white; padding: 8px; font-weight: bold; text-align: center; }
         .age-res { background: #fbe5d6; padding: 10px; text-align: center; font-weight: bold; border-top: var(--border); font-size: 1.2em; }
         
-        /* financial panels (inside each fin tab) */
         .nav-tabs { 
             display: flex; 
             width: 100%; 
@@ -127,7 +122,6 @@
         .emi-a { background-color: #c4d79b; } .emi-i { background-color: #fabf8f; }
         .calc-btn { margin: 10px; padding: 8px 20px; cursor: pointer; background: #333; color: white; border: none; border-radius: 4px; }
 
-        /* recurring deposit card style */
         .rd-card { background: #f9f1d9; border: 3px solid #5a3e1b; border-radius: 20px; padding: 25px; max-width: 500px; margin: auto; box-shadow: 0 8px 12px rgba(0,0,0,0.2); }
         .rd-title { font-size: 26px; font-weight: bold; color: #1e3c5c; margin-bottom: 15px; text-align: center; border-bottom: 2px dashed #a67c52; padding-bottom: 10px; }
         .rd-field { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; background: #fff8e7; padding: 12px; border-radius: 40px; border: 1px solid #b98c5f; }
@@ -140,7 +134,6 @@
         .rd-result p { margin: 8px 0; display: flex; justify-content: space-between; }
         .rd-result span { color: #b33100; background: white; padding: 5px 20px; border-radius: 40px; border: 1px solid #a0522d; }
 
-        /* New styles from 01.html */
         .math-table {
             width: 100%; border-collapse: collapse; margin-bottom: 20px;
             background: white; border: 1px solid #999;
@@ -155,7 +148,6 @@
         .gold-res { background-color: var(--final-res-bg); font-weight: bold; }
         .output-text { font-style: italic; min-height: 20px; word-break: break-all; padding: 10px; }
 
-        /* footer credit line */
         .credit-footer {
             position: fixed;
             bottom: 0;
@@ -261,7 +253,7 @@
         <div class="grid-2">
             <div class="card">
                 <div class="age-header">AGE CALCULATOR</div>
-                <div class="age-row"><div class="age-label">Insert Date of Birth</div><div class="age-input"><input type="date" id="dob" value="" oninput="calcDT()"></div></div>
+                <div class="age-row"><div class="age-label">Insert Date of Birth</div><div class="age-input"><input type="date" id="dob" value="1990-01-01" oninput="calcDT()"></div></div>
                 <div class="age-row"><div class="age-label">Current Date</div><div class="age-input"><input type="date" id="curr_date" oninput="calcDT()"></div></div>
                 <div class="age-res" id="age_result">0 Years 0 Months 0 Days</div>
             </div>
@@ -293,13 +285,13 @@
         <div style="max-width:500px; margin:auto;">
             <div class="header-bar">ਸਧਾਰਨ ਵਿਆਜ (ਸਿਰਫ਼)</div>
             <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p1" value="0"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r1" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t1" value="0"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_si1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_I()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p1" value="0" oninput="calcSI_I()"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r1" value="0" oninput="calcSI_I()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t1" value="0" oninput="calcSI_I()"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_si1" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r2" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t2" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i2" value="0"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_si2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_P()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r2" value="0" oninput="calcSI_P()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t2" value="0" oninput="calcSI_P()"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i2" value="0" oninput="calcSI_P()"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_si2" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p3" value="0"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r3" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i3" value="0"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_si3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_T()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p3" value="0" oninput="calcSI_T()"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r3" value="0" oninput="calcSI_T()"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i3" value="0" oninput="calcSI_T()"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_si3" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p4" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t4" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i4" value="0"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_si4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_R()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p4" value="0" oninput="calcSI_R()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t4" value="0" oninput="calcSI_R()"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i4" value="0" oninput="calcSI_R()"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_si4" class="result-val">?</span></td></tr></table></div>
         </div>
     </div>
 
@@ -308,15 +300,15 @@
         <div style="max-width:500px; margin:auto;">
             <div class="header-bar">ਮਿਸ਼ਰਤ ਵਿਆਜ (ਸਿਰਫ਼)</div>
             <div class="sub-header">ਕੁੱਲਧਨ (A) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p1" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r1" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t1" value="0"></td></tr><tr class="result-row"><td>ਕੁੱਲਧਨ (A) =</td><td><span id="res_ci1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_A()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p1" value="0" oninput="calcCI_A()"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r1" value="0" oninput="calcCI_A()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t1" value="0" oninput="calcCI_A()"></td></tr><tr class="result-row"><td>ਕੁੱਲਧਨ (A) =</td><td><span id="res_ci1" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p2" value="0"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a2" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r2" value="0"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_ci2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_T()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p2" value="0" oninput="calcCI_T()"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a2" value="0" oninput="calcCI_T()"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r2" value="0" oninput="calcCI_T()"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_ci2" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p3" value="0"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a3" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t3" value="0"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_ci3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_R()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p3" value="0" oninput="calcCI_R()"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a3" value="0" oninput="calcCI_R()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t3" value="0" oninput="calcCI_R()"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_ci3" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a4" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r4" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t4" value="0"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_ci4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_P()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a4" value="0" oninput="calcCI_P()"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r4" value="0" oninput="calcCI_P()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t4" value="0" oninput="calcCI_P()"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_ci4" class="result-val">?</span></td></tr></table></div>
             <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p5" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r5" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t5" value="0"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_ci5" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_I()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p5" value="0" oninput="calcCI_I()"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r5" value="0" oninput="calcCI_I()"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t5" value="0" oninput="calcCI_I()"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_ci5" class="result-val">?</span></td></tr></table></div>
         </div>
     </div>
 
@@ -324,7 +316,7 @@
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
             <div class="emi-header">EMI ਕੈਲਕੁਲੇਟਰ</div>
-            <div class="calc-card"><table><tr class="emi-p"><td>Principal</td><td><input type="number" id="emi_p" value="0"></td></tr><tr class="emi-t"><td>time in years</td><td><input type="number" id="emi_t" value="0"></td></tr><tr class="emi-r"><td>rate (%)</td><td><input type="number" id="emi_r" value="0"></td></tr><tr class="emi-res"><td>EMI</td><td><span id="res_emi" class="result-val">?</span></td></tr><tr class="emi-a"><td>Total payable ammount=</td><td><span id="res_emi_a" class="result-val">?</span></td></tr><tr class="emi-i"><td>total payable intrest=</td><td><span id="res_emi_i" class="result-val">?</span></td></tr></table><center><button class="calc-btn" style="background:#4a7ebb" onclick="calcEMI()">Calculate EMI</button></center></div>
+            <div class="calc-card"><table><tr class="emi-p"><td>Principal</td><td><input type="number" id="emi_p" value="0" oninput="calcEMI()"></td></tr><tr class="emi-t"><td>time in years</td><td><input type="number" id="emi_t" value="0" oninput="calcEMI()"></td></tr><tr class="emi-r"><td>rate (%)</td><td><input type="number" id="emi_r" value="0" oninput="calcEMI()"></td></tr><tr class="emi-res"><td>EMI</td><td><span id="res_emi" class="result-val">?</span></td></tr><tr class="emi-a"><td>Total payable ammount=</td><td><span id="res_emi_a" class="result-val">?</span></td></tr><tr class="emi-i"><td>total payable intrest=</td><td><span id="res_emi_i" class="result-val">?</span></td></tr></table></div>
         </div>
     </div>
 
@@ -334,17 +326,16 @@
             <div class="rd-title">💰 RD / SIP (ਆਵਰਤੀ ਜਮ੍ਹਾਂ)</div>
             <div class="rd-field">
                 <label>📅 Monthly Instalment</label>
-                <input type="number" id="rd_inst" value="0" step="100">
+                <input type="number" id="rd_inst" value="0" step="100" oninput="calcRD()">
             </div>
             <div class="rd-field">
                 <label>📊 Annual Interst(%)</label>
-                <input type="number" id="rd_rate" value="0" step="0.1">
+                <input type="number" id="rd_rate" value="0" step="0.1" oninput="calcRD()">
             </div>
             <div class="rd-field">
                 <label>⏱️ Time(Year)</label>
-                <input type="number" id="rd_years" value="0" step="0.5">
+                <input type="number" id="rd_years" value="0" step="0.5" oninput="calcRD()">
             </div>
-            <button class="rd-btn" onclick="calcRD()">🔢 Calculate Maturity</button>
             <div class="rd-result">
                 <p><span>Invested</span> <span id="rd_invested">0</span></p>
                 <p><span>Maturity</span> <span id="rd_maturity">0</span></p>
@@ -372,66 +363,66 @@
 
             <table class="math-table">
                 <tr><th colspan="2">Find Mode (Remainder)</th></tr>
-                <tr><td><input type="number" id="r1" value="0" oninput="runAllMath()"></td><td><input type="number" id="r2" value="0" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" id="r1" value="0" oninput="runAllMath()"></td><td><input type="number" id="r2" value="1" oninput="runAllMath()"></td></tr>
                 <tr class="res-row"><td>Remainder =</td><td id="rem-res">0</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2">Find Log</th></tr>
-                <tr><td>Add a Number</td><td><input type="number" id="log-in" value="0" oninput="runAllMath()"></td></tr>
+                <tr><td>Add a Number</td><td><input type="number" id="log-in" value="1" oninput="runAllMath()"></td></tr>
                 <tr class="res-row"><td>Log (base 10) =</td><td id="log-res">0.0000</td></tr>
             </table>
         </div>
     </div>
 
-<div id="text-tab" class="tab-content">
-    <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
-    <div style="max-width:500px; margin:auto;">
-        <table class="math-table">
-            <tr><td class="txt-head">Add Data</td></tr>
-            <tr>
-                <td>
-                    <input type="text" id="t-in" value="" placeholder="Enter text here..." oninput="runText()">
-                    <div style="margin-top: 10px;">
-                        <button class="calc-btn" style="background:#d32f2f; padding: 5px 15px;" onclick="clearTextAll()">Clear All</button>
-                    </div>
-                </td>
-            </tr>
-            
-            <tr><td class="txt-head">Trim</td></tr>
-            <tr>
-                <td class="output-text">
-                    <div id="t-trim" style="margin-bottom:10px; min-height:1.2em;"></div>
-                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-trim')">Copy</button>
-                </td>
-            </tr>
+    <div id="text-tab" class="tab-content">
+        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+        <div style="max-width:500px; margin:auto;">
+            <table class="math-table">
+                <tr><td class="txt-head">Add Data</td></tr>
+                <tr>
+                    <td>
+                        <input type="text" id="t-in" value="" placeholder="Enter text here..." oninput="runText()">
+                        <div style="margin-top: 10px;">
+                            <button class="calc-btn" style="background:#d32f2f; padding: 5px 15px;" onclick="clearTextAll()">Clear All</button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr><td class="txt-head">Trim</td></tr>
+                <tr>
+                    <td class="output-text">
+                        <div id="t-trim" style="margin-bottom:10px; min-height:1.2em;"></div>
+                        <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-trim')">Copy</button>
+                    </td>
+                </tr>
 
-            <tr><td class="txt-head">UPPER</td></tr>
-            <tr>
-                <td class="output-text">
-                    <div id="t-up" style="margin-bottom:10px; min-height:1.2em;"></div>
-                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-up')">Copy</button>
-                </td>
-            </tr>
+                <tr><td class="txt-head">UPPER</td></tr>
+                <tr>
+                    <td class="output-text">
+                        <div id="t-up" style="margin-bottom:10px; min-height:1.2em;"></div>
+                        <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-up')">Copy</button>
+                    </td>
+                </tr>
 
-            <tr><td class="txt-head">lower</td></tr>
-            <tr>
-                <td class="output-text">
-                    <div id="t-low" style="margin-bottom:10px; min-height:1.2em;"></div>
-                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-low')">Copy</button>
-                </td>
-            </tr>
+                <tr><td class="txt-head">lower</td></tr>
+                <tr>
+                    <td class="output-text">
+                        <div id="t-low" style="margin-bottom:10px; min-height:1.2em;"></div>
+                        <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-low')">Copy</button>
+                    </td>
+                </tr>
 
-            <tr><td class="txt-head">Proper Case</td></tr>
-            <tr>
-                <td class="output-text">
-                    <div id="t-prop" style="margin-bottom:10px; min-height:1.2em;"></div>
-                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-prop')">Copy</button>
-                </td>
-            </tr>
-        </table>
+                <tr><td class="txt-head">Proper Case</td></tr>
+                <tr>
+                    <td class="output-text">
+                        <div id="t-prop" style="margin-bottom:10px; min-height:1.2em;"></div>
+                        <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-prop')">Copy</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
 
     <div id="trig-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
@@ -460,7 +451,7 @@
             <table class="math-table">
                 <tr><th colspan="2" class="res-row" style="color: black;">Find Custom Root (nth)</th></tr>
                 <tr><td>Number</td><td><input type="number" id="cust-num" value="0" oninput="runTrigRoots()"></td></tr>
-                <tr><td>Root Value (n)</td><td><input type="number" id="cust-root" value="0" oninput="runTrigRoots()"></td></tr>
+                <tr><td>Root Value (n)</td><td><input type="number" id="cust-root" value="1" oninput="runTrigRoots()"></td></tr>
                 <tr class="gold-res"><td>Result =</td><td id="cust-res">0.0000</td></tr>
             </table>
         </div>
@@ -469,20 +460,11 @@
     <div class="credit-footer">By Raj Kamboj 9465428299</div>
 
     <script>
-        // ---------- MASTER CALCULATOR FUNCTIONS (original) ----------
+        // ---------- MASTER CALCULATOR FUNCTIONS ----------
         function openTab(tabId) {
             document.getElementById('main-menu').style.display = 'none';
             document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
             document.getElementById(tabId).style.display = 'block';
-            // recalc all relevant
-            if (typeof calcPL === 'function') calcPL();
-            if (typeof calcVol === 'function') calcVol();
-            if (typeof calcSD === 'function') calcSD();
-            if (typeof calcDT === 'function') calcDT();
-            if(tabId === 'rd-full-tab' && typeof calcRD === 'function') calcRD();
-            if(tabId === 'math-tab' && typeof runAllMath === 'function') runAllMath();
-            if(tabId === 'text-tab' && typeof runText === 'function') runText();
-            if(tabId === 'trig-tab' && typeof runTrigRoots === 'function') runTrigRoots();
         }
 
         function showMenu() {
@@ -493,6 +475,7 @@
         const v = (id) => parseFloat(document.getElementById(id)?.value) || 0;
         const s = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
+        // Profit & Loss
         function calcPL() {
             s('r1', v('p1_c') ? ((v('p1_v')/v('p1_c'))*100).toFixed(2)+'%' : '0%');
             s('r2', v('l2_c') ? ((v('l2_v')/v('l2_c'))*100).toFixed(2)+'%' : '0%');
@@ -504,6 +487,7 @@
             s('r7', v('p7_c') ? ((Math.abs(d7)/v('p7_c'))*100).toFixed(2) + '% ' + (d7 >= 0 ? 'Profit' : 'Loss') : '0%');
         }
 
+        // Volume
         function calcVol() {
             let width = (v('v_wf')*12)+v('v_wi'), len = (v('v_lf')*12)+v('v_li'), h = (v('v_hf')*12)+v('v_hi');
             let cf = (width*len*h)/1728;
@@ -511,6 +495,7 @@
             s('v_tot', (cf * v('v_pr')).toFixed(2));
         }
 
+        // Speed & Distance
         function calcSD() {
             s('st1', v('s1') ? (v('d1')/v('s1')).toFixed(2) : '0');
             s('ss2', v('t2') ? (v('d2')/v('t2')).toFixed(2) : '0');
@@ -522,6 +507,7 @@
             s('c_k', (v('c_m') * 18/5).toFixed(2) + " km/h");
         }
 
+        // Date & Time
         function calcDT() {
             let dobValue = document.getElementById('dob').value;
             let dob = dobValue ? new Date(dobValue) : null;
@@ -545,7 +531,12 @@
                 s('days_diff', '0');
             }
             
-            const fmt = (tot) => { let h = Math.floor(tot/60)%24, m = tot%60, p = h>=12?'PM':'AM'; return `${String(h%12||12).padStart(2,'0')}:${String(m).padStart(2,'0')} ${p}`; };
+            const fmt = (tot) => { 
+                if (tot < 0) return "Invalid";
+                let h = Math.floor(tot/60)%24, m = tot%60, p = h>=12?'PM':'AM'; 
+                return `${String(h%12||12).padStart(2,'0')}:${String(m).padStart(2,'0')} ${p}`; 
+            };
+            
             let [sh, sm] = (document.getElementById('start_time').value || '0:0').split(':').map(Number);
             let [ah, am] = (document.getElementById('add_time').value || "0:0").split(':').map(Number);
             s('final_time', fmt((sh*60+sm)+(ah*60+(am||0))));
@@ -564,33 +555,61 @@
             }
         }
 
-        // SI functions
+        // Simple Interest
         function calcSI_I() { let p = v('si_p1'), r = v('si_r1'), t = v('si_t1'); s('res_si1', (p * r * t) / 100); }
-        function calcSI_P() { let r = v('si_r2'), t = v('si_t2'), i = v('si_i2'); s('res_si2', ((i * 100) / (r * t)).toFixed(2)); }
-        function calcSI_T() { let p = v('si_p3'), r = v('si_r3'), i = v('si_i3'); s('res_si3', ((i * 100) / (p * r)).toFixed(2)); }
-        function calcSI_R() { let p = v('si_p4'), t = v('si_t4'), i = v('si_i4'); s('res_si4', ((i * 100) / (p * t)).toFixed(2) + "%"); }
+        function calcSI_P() { 
+            let r = v('si_r2'), t = v('si_t2'), i = v('si_i2'); 
+            if(r && t) s('res_si2', ((i * 100) / (r * t)).toFixed(2)); 
+            else s('res_si2', '0');
+        }
+        function calcSI_T() { 
+            let p = v('si_p3'), r = v('si_r3'), i = v('si_i3'); 
+            if(p && r) s('res_si3', ((i * 100) / (p * r)).toFixed(2)); 
+            else s('res_si3', '0');
+        }
+        function calcSI_R() { 
+            let p = v('si_p4'), t = v('si_t4'), i = v('si_i4'); 
+            if(p && t) s('res_si4', ((i * 100) / (p * t)).toFixed(2) + "%"); 
+            else s('res_si4', '0%');
+        }
 
-        // CI functions
+        // Compound Interest
         function calcCI_A() { let p = v('ci_p1'), r = v('ci_r1'), t = v('ci_t1'); s('res_ci1', (p * Math.pow((1 + r/100), t)).toFixed(2)); }
-        function calcCI_T() { let p = v('ci_p2'), a = v('ci_a2'), r = v('ci_r2'); s('res_ci2', (Math.log(a / p) / Math.log(1 + r / 100)).toFixed(2)); }
-        function calcCI_R() { let p = v('ci_p3'), a = v('ci_a3'), t = v('ci_t3'); s('res_ci3', ((Math.pow((a / p), (1 / t)) - 1) * 100).toFixed(2) + "%"); }
-        function calcCI_P() { let a = v('ci_a4'), r = v('ci_r4'), t = v('ci_t4'); s('res_ci4', (a / Math.pow((1 + r/100), t)).toFixed(2)); }
-        function calcCI_I() { let p = v('ci_p5'), r = v('ci_r5'), t = v('ci_t5'); let a = p * Math.pow((1 + r/100), t); s('res_ci5', (a - p).toFixed(2)); }
+        function calcCI_T() { 
+            let p = v('ci_p2'), a = v('ci_a2'), r = v('ci_r2'); 
+            if(p > 0 && a > 0 && r > 0) s('res_ci2', (Math.log(a / p) / Math.log(1 + r / 100)).toFixed(2)); 
+            else s('res_ci2', '0');
+        }
+        function calcCI_R() { 
+            let p = v('ci_p3'), a = v('ci_a3'), t = v('ci_t3'); 
+            if(p > 0 && a > 0 && t > 0) s('res_ci3', ((Math.pow((a / p), (1 / t)) - 1) * 100).toFixed(2) + "%"); 
+            else s('res_ci3', '0%');
+        }
+        function calcCI_P() { 
+            let a = v('ci_a4'), r = v('ci_r4'), t = v('ci_t4'); 
+            if(r || t) s('res_ci4', (a / Math.pow((1 + r/100), t)).toFixed(2)); 
+            else s('res_ci4', '0');
+        }
+        function calcCI_I() { 
+            let p = v('ci_p5'), r = v('ci_r5'), t = v('ci_t5'); 
+            let a = p * Math.pow((1 + r/100), t); 
+            s('res_ci5', (a - p).toFixed(2)); 
+        }
 
         // EMI
         function calcEMI() { 
             let P = v('emi_p'), R = v('emi_r') / (12 * 100), N = v('emi_t') * 12; 
-            if(N === 0 || isNaN(P * R)) {
-                 s('res_emi', "0"); s('res_emi_a', "0"); s('res_emi_i', "0");
-                 return;
+            if(N > 0 && R > 0 && P > 0) {
+                let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1); 
+                s('res_emi', Math.round(emi).toLocaleString()); 
+                s('res_emi_a', Math.round(emi * N).toLocaleString()); 
+                s('res_emi_i', Math.round((emi * N) - P).toLocaleString()); 
+            } else {
+                s('res_emi', "0"); s('res_emi_a', "0"); s('res_emi_i', "0");
             }
-            let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1); 
-            s('res_emi', Math.round(emi).toLocaleString()); 
-            s('res_emi_a', Math.round(emi * N).toLocaleString()); 
-            s('res_emi_i', Math.round((emi * N) - P).toLocaleString()); 
         }
 
-        // RD calculator
+        // RD
         function calcRD() {
             let P = v('rd_inst');
             let r_annual = v('rd_rate') / 100;
@@ -598,10 +617,10 @@
             let n = years * 12;
             let r_monthly = r_annual / 12;
 
-            if (r_monthly === 0 || n === 0) {
+            if (r_monthly === 0 || n === 0 || P === 0) {
                 let simple = P * n;
-                s('rd_invested', simple.toFixed(0));
-                s('rd_maturity', simple.toFixed(0));
+                s('rd_invested', Math.round(simple).toLocaleString());
+                s('rd_maturity', Math.round(simple).toLocaleString());
                 return;
             }
 
@@ -613,8 +632,8 @@
             s('rd_maturity', Math.round(maturity).toLocaleString());
         }
 
-        // ---------- NEW FUNCTIONS FROM 01.HTML ----------
-        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+        // Math Tools
+        const gcd = (a, b) => b === 0 ? Math.abs(a) : gcd(b, a % b);
         const lcm = (a, b) => (a === 0 || b === 0) ? 0 : Math.abs(a * b) / gcd(a, b);
 
         function runAllMath() {
@@ -635,62 +654,106 @@
 
             // Log
             let lVal = parseFloat(document.getElementById('log-in').value);
-            document.getElementById('log-res').innerText = (lVal > 0) ? Math.log10(lVal).toFixed(4) : "0.0000";
+            document.getElementById('log-res').innerText = (lVal > 0) ? Math.log10(lVal).toFixed(4) : (lVal === 0 ? '-∞' : 'undefined');
         }
 
+        // Text Tools
         function runText() {
-    let val = document.getElementById('t-in').value;
-    document.getElementById('t-trim').innerText = val.trim();
-    document.getElementById('t-up').innerText = val.toUpperCase();
-    document.getElementById('t-low').innerText = val.toLowerCase();
-    document.getElementById('t-prop').innerText = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
-}
-
-function copyTxt(id) {
-    let text = document.getElementById(id).innerText;
-    if (!text || text.trim() === "") {
-        alert("Nothing to copy!");
-        return;
-    }
-
-    // Modern Clipboard API
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Copied: " + text);
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-    } else {
-        // Fallback for older browsers or non-HTTPS
-        let textArea = document.createElement("textarea");
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            alert("Copied: " + text);
-        } catch (err) {
-            alert("Manual copy required");
+            let val = document.getElementById('t-in').value;
+            document.getElementById('t-trim').innerText = val.trim();
+            document.getElementById('t-up').innerText = val.toUpperCase();
+            document.getElementById('t-low').innerText = val.toLowerCase();
+            document.getElementById('t-prop').innerText = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
         }
-        document.body.removeChild(textArea);
-    }
-}
 
-function clearTextAll() {
-    document.getElementById('t-in').value = "";
-    runText(); // This will clear all output boxes via the logic above
-}
+        function copyTxt(id) {
+            let text = document.getElementById(id).innerText;
+            if (!text || text.trim() === "") {
+                alert("Nothing to copy!");
+                return;
+            }
 
-        // On load: set current date and compute default values
-        window.onload = () => { 
-            // We set it to null or empty for "all 0" request, but usually current date is better UX. 
-            // Setting to empty as requested.
-            if (document.getElementById('curr_date')) document.getElementById('curr_date').value = "";
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Copied: " + text);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert("Copied: " + text);
+                } catch (err) {
+                    alert("Manual copy required");
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function clearTextAll() {
+            document.getElementById('t-in').value = "";
+            runText();
+        }
+
+        // Trig & Roots
+        function runTrigRoots() {
+            let deg = parseFloat(document.getElementById('trig-deg').value) || 0;
+            let rad = deg * Math.PI / 180;
+            
+            let sinVal = Math.sin(rad);
+            let cosVal = Math.cos(rad);
+            let tanVal = Math.tan(rad);
+            
+            s('s-res', sinVal.toFixed(6));
+            s('c-res', cosVal.toFixed(6));
+            s('t-res', Math.abs(cosVal) < 1e-10 ? "∞" : tanVal.toFixed(6));
+            s('csc-res', Math.abs(sinVal) < 1e-10 ? "∞" : (1/sinVal).toFixed(6));
+            s('sec-res', Math.abs(cosVal) < 1e-10 ? "∞" : (1/cosVal).toFixed(6));
+            s('cot-res', Math.abs(tanVal) < 1e-10 ? "∞" : (1/tanVal).toFixed(6));
+            
+            let rootBase = parseFloat(document.getElementById('root-base').value) || 0;
+            s('sq-res', Math.sqrt(rootBase).toFixed(6));
+            s('cb-res', Math.cbrt(rootBase).toFixed(6));
+            
+            let custNum = parseFloat(document.getElementById('cust-num').value) || 0;
+            let custRoot = parseFloat(document.getElementById('cust-root').value) || 1;
+            if (custNum >= 0 || custRoot % 2 === 1) {
+                s('cust-res', Math.pow(custNum, 1/custRoot).toFixed(6));
+            } else {
+                s('cust-res', "Invalid");
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default dates
+            let today = new Date().toISOString().split('T')[0];
+            document.getElementById('curr_date').value = today;
+            
+            // Trigger all calculations
+            calcPL();
+            calcVol();
+            calcSD();
+            calcDT();
+            calcSI_I();
+            calcSI_P();
+            calcSI_T();
+            calcSI_R();
+            calcCI_A();
+            calcCI_T();
+            calcCI_R();
+            calcCI_P();
+            calcCI_I();
+            calcEMI();
             calcRD();
             runAllMath();
             runText();
             runTrigRoots();
-        };
+        });
     </script>
 </body>
 </html>
