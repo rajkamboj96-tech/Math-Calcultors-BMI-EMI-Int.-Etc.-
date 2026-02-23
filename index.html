@@ -43,12 +43,12 @@
             align-items: center;
             justify-content: center;
             min-height: 80vh;
-            gap: 15px;
+            gap: 5px;
         }
         .menu-btn {
             width: 320px;
             padding: 12px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             border: 2px solid #000;
             border-radius: 10px;
@@ -176,48 +176,33 @@
 </head>
 <body>
 
-    <!-- MAIN MENU: 11 buttons (original 8 + 3 new from 01.html) -->
     <div id="main-menu">        
-        <!-- 1. ਸਧਾਰਨ ਵਿਆਜ -->
         <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('si-full-tab')">1. 💵 ਸਧਾਰਨ ਵਿਆਜ (Simple)</div>
-        <!-- 2. ਮਿਸ਼ਰਤ ਵਿਆਜ -->
         <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('ci-full-tab')">2. 📈 ਮਿਸ਼ਰਤ ਵਿਆਜ (Compound)</div>
-        <!-- 3. EMI -->
         <div class="menu-btn" style="background-color: #c5be97;" onclick="openTab('emi-full-tab')">3. 🏦 EMI ਕੈਲਕੁਲੇਟਰ</div>
-        <!-- 4. RD/SIP -->
         <div class="menu-btn" style="background-color: #e6b800; color: #000;" onclick="openTab('rd-full-tab')">4. 💰 RD / SIP (ਆਵਰਤੀ ਜਮ੍ਹਾਂ)</div>
-        <!-- 5. Date & Time -->
         <div class="menu-btn" style="background-color: #fbe5d6;" onclick="openTab('dt-tab')">5. 📅 ਮਿਤੀ & ਸਮਾਂ (Date & Time)</div>
-        <!-- 6. Profit & Loss -->
         <div class="menu-btn" style="background-color: var(--label-green);" onclick="openTab('pl-tab')">6. 💹 ਲਾਭ / ਹਾਨੀ (Profit & Loss)</div>
-        <!-- 7. Speed & Distance -->
         <div class="menu-btn" style="background-color: var(--tab-blue);" onclick="openTab('sd-tab')">7. ⚡ ਗਤੀ & ਦੂਰੀ (Speed & Distance)</div>
-        <!-- 8. Find Volume & Total Price -->
         <div class="menu-btn" style="background-color: var(--volume-orange);" onclick="openTab('vol-tab')">8. 📦 ਵਾਲੀਅਮ & ਕੁੱਲ ਕੀਮਤ (Volume+Price)</div>
-        <!-- NEW BUTTON 9: Math Tools (LCM, HCF, Mode, Log) -->
         <div class="menu-btn" style="background-color: #9eb8d6;" onclick="openTab('math-tab')">9. 🔢 ਗਣਿਤ ਟੂਲ (Math Tools)</div>
-        <!-- NEW BUTTON 10: Text Utils -->
         <div class="menu-btn" style="background-color: #a3966a; color: white;" onclick="openTab('text-tab')">10. 📝 ਟੈਕਸਟ ਯੂਟਿਲ (Text Utils)</div>
-        <!-- NEW BUTTON 11: Trig & Roots -->
         <div class="menu-btn" style="background-color: #d99a94;" onclick="openTab('trig-tab')">11. 📐 ਤਿਕੋਣਮਿਤੀ & ਮੂਲ (Trig & Roots)</div>
     </div>
 
-    <!-- ========== ALL TABS ========== -->
-    <!-- Profit & Loss tab (6) -->
     <div id="pl-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div class="grid-2">
-            <div class="card"><div class="header">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਲਾਭ</div><div class="input-wrapper"><input type="number" id="p1_v" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p1_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r1"></div></div></div>
-            <div class="card"><div class="header">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਹਾਨੀ</div><div class="input-wrapper"><input type="number" id="l2_v" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l2_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r2"></div></div></div>
-            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p3_p" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p3_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r3"></div></div></div>
-            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p4_p" value="15" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p4_s" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r4"></div></div></div>
-            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l5_p" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l5_c" value="100" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r5"></div></div></div>
-            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l6_p" value="10" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l6_s" value="100" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r6"></div></div></div>
-            <div class="card"><div class="header">ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_c" value="200" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_s" value="220" oninput="calcPL()"></div></div><div class="row"><div class="label">ਨਤੀਜਾ =</div><div class="res-box" id="r7"></div></div></div>
+            <div class="card"><div class="header">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਲਾਭ</div><div class="input-wrapper"><input type="number" id="p1_v" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p1_c" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r1"></div></div></div>
+            <div class="card"><div class="header">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਹਾਨੀ</div><div class="input-wrapper"><input type="number" id="l2_v" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l2_c" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ =</div><div class="res-box" id="r2"></div></div></div>
+            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p3_p" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p3_c" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r3"></div></div></div>
+            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਲਾਭ ਸਮੇਂ)</div><div class="row"><div class="label">ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ</div><div class="input-wrapper"><input type="number" id="p4_p" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p4_s" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r4"></div></div></div>
+            <div class="card"><div class="header">ਵੇਚ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l5_p" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l5_c" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ =</div><div class="res-box" id="r5"></div></div></div>
+            <div class="card"><div class="header">ਖਰੀਦ ਮੁੱਲ (ਹਾਨੀ ਸਮੇਂ)</div><div class="row"><div class="label">ਹਾਨੀ%</div><div class="input-wrapper"><input type="number" id="l6_p" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="l6_s" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ =</div><div class="res-box" id="r6"></div></div></div>
+            <div class="card"><div class="header">ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ</div><div class="row"><div class="label">ਖਰੀਦ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_c" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਵੇਚ ਮੁੱਲ</div><div class="input-wrapper"><input type="number" id="p7_s" value="0" oninput="calcPL()"></div></div><div class="row"><div class="label">ਨਤੀਜਾ =</div><div class="res-box" id="r7"></div></div></div>
         </div>
     </div>
 
-    <!-- Volume tab (8) -->
     <div id="vol-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div class="card" style="max-width: 600px; margin: auto;">
@@ -232,200 +217,222 @@
         </div>
     </div>
 
-    <!-- Speed & Distance tab (7) -->
     <div id="sd-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div class="grid-2">
             <div class="card">
                 <div class="header">KM / H Calculations</div>
-                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d1" value="45" oninput="calcSD()"></div><div class="unit-label">km</div></div>
-                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s1" value="30" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d1" value="0" oninput="calcSD()"></div><div class="unit-label">km</div></div>
+                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s1" value="0" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
                 <div class="row"><div class="label">ਸਮਾਂ (h) =</div><div class="res-box" id="st1"></div><div class="unit-label">h</div></div>
                 <hr>
-                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d2" value="100" oninput="calcSD()"></div><div class="unit-label">km</div></div>
-                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t2" value="1" oninput="calcSD()"></div><div class="unit-label">h</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (km)</div><div class="input-wrapper"><input type="number" id="d2" value="0" oninput="calcSD()"></div><div class="unit-label">km</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t2" value="0" oninput="calcSD()"></div><div class="unit-label">h</div></div>
                 <div class="row"><div class="label">ਗਤੀ (km/h) =</div><div class="res-box" id="ss2"></div><div class="unit-label">km/h</div></div>
                 <hr>
-                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s3" value="50" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
-                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t3" value="1" oninput="calcSD()"></div><div class="unit-label">h</div></div>
+                <div class="row"><div class="label">ਗਤੀ (km/h)</div><div class="input-wrapper"><input type="number" id="s3" value="0" oninput="calcSD()"></div><div class="unit-label">km/h</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (h)</div><div class="input-wrapper"><input type="number" id="t3" value="0" oninput="calcSD()"></div><div class="unit-label">h</div></div>
                 <div class="row"><div class="label">ਦੂਰੀ (km) =</div><div class="res-box" id="sd3"></div><div class="unit-label">km</div></div>
             </div>
             <div class="card">
                 <div class="header">M / S Calculations</div>
-                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm1" value="200" oninput="calcSD()"></div><div class="unit-label">M</div></div>
-                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm1" value="5" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm1" value="0" oninput="calcSD()"></div><div class="unit-label">M</div></div>
+                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm1" value="0" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
                 <div class="row"><div class="label">ਸਮਾਂ (S) =</div><div class="res-box" id="tm1" style="background: #cd706e; color: white;"></div><div class="unit-label">S</div></div>
                 <hr>
-                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm2" value="100" oninput="calcSD()"></div><div class="unit-label">M</div></div>
-                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm2" value="10" oninput="calcSD()"></div><div class="unit-label">S</div></div>
+                <div class="row"><div class="label">ਦੂਰੀ (M)</div><div class="input-wrapper"><input type="number" id="dm2" value="0" oninput="calcSD()"></div><div class="unit-label">M</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm2" value="0" oninput="calcSD()"></div><div class="unit-label">S</div></div>
                 <div class="row"><div class="label">ਗਤੀ (M/S) =</div><div class="res-box" id="sm2" style="background: #cd706e; color: white;"></div><div class="unit-label">M/S</div></div>
                 <hr>
-                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm3" value="10" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
-                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm3" value="10" oninput="calcSD()"></div><div class="unit-label">S</div></div>
+                <div class="row"><div class="label">ਗਤੀ (M/S)</div><div class="input-wrapper"><input type="number" id="sm3" value="0" oninput="calcSD()"></div><div class="unit-label">M/S</div></div>
+                <div class="row"><div class="label">ਸਮਾਂ (S)</div><div class="input-wrapper"><input type="number" id="tm3" value="0" oninput="calcSD()"></div><div class="unit-label">S</div></div>
                 <div class="row"><div class="label">ਦੂਰੀ (M) =</div><div class="res-box" id="dm3" style="background: #cd706e; color: white;"></div><div class="unit-label">M</div></div>
             </div>
         </div>
         <div class="card" style="max-width: 500px; margin: 10px auto;">
             <div class="header">Unit Converter</div>
-            <div class="row"><div class="label">KM/H to M/S</div><div class="input-wrapper"><input type="number" id="c_km" value="54" oninput="calcSD()"></div><div class="res-box" id="c_ms"></div></div>
-            <div class="row"><div class="label">M/S to KM/H</div><div class="input-wrapper"><input type="number" id="c_m" value="15" oninput="calcSD()"></div><div class="res-box" id="c_k"></div></div>
+            <div class="row"><div class="label">KM/H to M/S</div><div class="input-wrapper"><input type="number" id="c_km" value="0" oninput="calcSD()"></div><div class="res-box" id="c_ms"></div></div>
+            <div class="row"><div class="label">M/S to KM/H</div><div class="input-wrapper"><input type="number" id="c_m" value="0" oninput="calcSD()"></div><div class="res-box" id="c_k"></div></div>
         </div>
     </div>
 
-    <!-- Date & Time tab (5) -->
     <div id="dt-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div class="grid-2">
             <div class="card">
                 <div class="age-header">AGE CALCULATOR</div>
-                <div class="age-row"><div class="age-label">Insert Date of Birth</div><div class="age-input"><input type="date" id="dob" value="1978-04-22" oninput="calcDT()"></div></div>
+                <div class="age-row"><div class="age-label">Insert Date of Birth</div><div class="age-input"><input type="date" id="dob" value="" oninput="calcDT()"></div></div>
                 <div class="age-row"><div class="age-label">Current Date</div><div class="age-input"><input type="date" id="curr_date" oninput="calcDT()"></div></div>
-                <div class="age-res" id="age_result">47 Years 9 Months 30 Days</div>
+                <div class="age-res" id="age_result">0 Years 0 Months 0 Days</div>
             </div>
             <div class="card">
                 <div class="header" style="background: #00b050; color: #fff;">DATE DIFFERENCE</div>
-                <div class="row"><div class="label">Starting Date</div><div class="input-wrapper"><input type="date" id="d_start" value="2019-01-01" oninput="calcDT()"></div></div>
-                <div class="row"><div class="label">End Date</div><div class="input-wrapper"><input type="date" id="d_end" value="2020-01-01" oninput="calcDT()"></div></div>
-                <div class="row"><div class="label">Days Difference</div><div class="res-box" id="days_diff">365</div></div>
+                <div class="row"><div class="label">Starting Date</div><div class="input-wrapper"><input type="date" id="d_start" value="" oninput="calcDT()"></div></div>
+                <div class="row"><div class="label">End Date</div><div class="input-wrapper"><input type="date" id="d_end" value="" oninput="calcDT()"></div></div>
+                <div class="row"><div class="label">Days Difference</div><div class="res-box" id="days_diff">0</div></div>
             </div>
             <div class="card">
                 <div class="header" style="background: #000; color: #fff;">Add Hours & Minutes</div>
-                <div class="row"><div class="label">Start Time</div><input type="time" id="start_time" value="10:00" oninput="calcDT()" style="width:100%;"><input type="text" id="add_time" value="04:25" oninput="calcDT()" style="width:100%;"></div>
-                <div class="row"><div class="label">Final Time</div><div class="res-box" id="final_time">02:25 PM</div></div>
+                <div class="row"><div class="label">Start Time</div><input type="time" id="start_time" value="00:00" oninput="calcDT()" style="width:100%;"><input type="text" id="add_time" value="00:00" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Final Time</div><div class="res-box" id="final_time">12:00 AM</div></div>
                 <div class="header" style="background: #000; color: #fff;">Subtract Time</div>
-                <div class="row"><div class="label">End Time</div><input type="time" id="end_time" value="14:25" oninput="calcDT()" style="width:100%;"><input type="text" id="sub_time" value="02:25" oninput="calcDT()" style="width:100%;"></div>
-                <div class="row"><div class="label">Starting Time</div><div class="res-box" id="start_time_res">12:00 PM</div></div>
+                <div class="row"><div class="label">End Time</div><input type="time" id="end_time" value="00:00" oninput="calcDT()" style="width:100%;"><input type="text" id="sub_time" value="00:00" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Starting Time</div><div class="res-box" id="start_time_res">12:00 AM</div></div>
             </div>
             <div class="card">
                 <div class="header" style="background: #000; color: #fff;">Find Nth Day</div>
-                <div class="row"><div class="label">Date</div><input type="date" id="nth_start" value="2020-01-01" oninput="calcDT()" style="width:100%;"></div>
-                <div class="row"><div class="label">Add Days</div><input type="number" id="nth_add" value="277" oninput="calcDT()" style="width:100%;"></div>
-                <div class="row"><div class="label">Result</div><div class="res-box" id="nth_res">04-Oct-2020</div></div>
+                <div class="row"><div class="label">Date</div><input type="date" id="nth_start" value="" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Add Days</div><input type="number" id="nth_add" value="0" oninput="calcDT()" style="width:100%;"></div>
+                <div class="row"><div class="label">Result</div><div class="res-box" id="nth_res"></div></div>
             </div>
         </div>
     </div>
 
-    <!-- Simple Interest tab (1) -->
     <div id="si-full-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
             <div class="header-bar">ਸਧਾਰਨ ਵਿਆਜ (ਸਿਰਫ਼)</div>
             <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p1" value="100"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r1" value="10"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t1" value="2"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_si1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_I()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p1" value="0"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r1" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t1" value="0"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_si1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_I()">Calculate</button></center></div>
             <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r2" value="10"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t2" value="2"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i2" value="20"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_si2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_P()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r2" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t2" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i2" value="0"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_si2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_P()">Calculate</button></center></div>
             <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p3" value="100"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r3" value="10"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i3" value="20"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_si3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_T()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p3" value="0"></td></tr><tr><td>ਦਰ (R)</td><td><input type="number" id="si_r3" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i3" value="0"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_si3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_T()">Calculate</button></center></div>
             <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p4" value="100"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t4" value="2"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i4" value="20"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_si4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_R()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="si_p4" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="si_t4" value="0"></td></tr><tr><td>ਵਿਆਜ (I)</td><td><input type="number" id="si_i4" value="0"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_si4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcSI_R()">Calculate</button></center></div>
         </div>
     </div>
 
-    <!-- Compound Interest tab (2) -->
     <div id="ci-full-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
             <div class="header-bar">ਮਿਸ਼ਰਤ ਵਿਆਜ (ਸਿਰਫ਼)</div>
             <div class="sub-header">ਕੁੱਲਧਨ (A) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p1" value="100"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r1" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t1" value="6"></td></tr><tr class="result-row"><td>ਕੁੱਲਧਨ (A) =</td><td><span id="res_ci1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_A()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p1" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r1" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t1" value="0"></td></tr><tr class="result-row"><td>ਕੁੱਲਧਨ (A) =</td><td><span id="res_ci1" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_A()">Calculate</button></center></div>
             <div class="sub-header">ਸਮਾਂ (T) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p2" value="100"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a2" value="197"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r2" value="12"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_ci2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_T()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p2" value="0"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a2" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r2" value="0"></td></tr><tr class="result-row"><td>ਸਮਾਂ (T) =</td><td><span id="res_ci2" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_T()">Calculate</button></center></div>
             <div class="sub-header">ਦਰ (R) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p3" value="100"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a3" value="197"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t3" value="6"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_ci3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_R()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p3" value="0"></td></tr><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a3" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t3" value="0"></td></tr><tr class="result-row"><td>ਦਰ (R) =</td><td><span id="res_ci3" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_R()">Calculate</button></center></div>
             <div class="sub-header">ਮੂਲਧਨ (P) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a4" value="197"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r4" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t4" value="6"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_ci4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_P()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਕੁੱਲਧਨ (A)</td><td><input type="number" id="ci_a4" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r4" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t4" value="0"></td></tr><tr class="result-row"><td>ਮੂਲਧਨ (P) =</td><td><span id="res_ci4" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_P()">Calculate</button></center></div>
             <div class="sub-header">ਵਿਆਜ (I) ਪਤਾ ਕਰੋ</div>
-            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p5" value="100"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r5" value="12"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t5" value="6"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_ci5" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_I()">Calculate</button></center></div>
+            <div class="calc-card"><table><tr><td>ਮੂਲਧਨ (P)</td><td><input type="number" id="ci_p5" value="0"></td></tr><tr><td>ਦਰ (R%)</td><td><input type="number" id="ci_r5" value="0"></td></tr><tr><td>ਸਮਾਂ (T)</td><td><input type="number" id="ci_t5" value="0"></td></tr><tr class="result-row"><td>ਵਿਆਜ (I) =</td><td><span id="res_ci5" class="result-val">?</span></td></tr></table><center><button class="calc-btn" onclick="calcCI_I()">Calculate</button></center></div>
         </div>
     </div>
 
-    <!-- EMI tab (3) -->
     <div id="emi-full-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
             <div class="emi-header">EMI ਕੈਲਕੁਲੇਟਰ</div>
-            <div class="calc-card"><table><tr class="emi-p"><td>Principal</td><td><input type="number" id="emi_p" value="150000"></td></tr><tr class="emi-t"><td>time in years</td><td><input type="number" id="emi_t" value="5"></td></tr><tr class="emi-r"><td>rate (%)</td><td><input type="number" id="emi_r" value="12"></td></tr><tr class="emi-res"><td>EMI</td><td><span id="res_emi" class="result-val">?</span></td></tr><tr class="emi-a"><td>Total payable ammount=</td><td><span id="res_emi_a" class="result-val">?</span></td></tr><tr class="emi-i"><td>total payable intrest=</td><td><span id="res_emi_i" class="result-val">?</span></td></tr></table><center><button class="calc-btn" style="background:#4a7ebb" onclick="calcEMI()">Calculate EMI</button></center></div>
+            <div class="calc-card"><table><tr class="emi-p"><td>Principal</td><td><input type="number" id="emi_p" value="0"></td></tr><tr class="emi-t"><td>time in years</td><td><input type="number" id="emi_t" value="0"></td></tr><tr class="emi-r"><td>rate (%)</td><td><input type="number" id="emi_r" value="0"></td></tr><tr class="emi-res"><td>EMI</td><td><span id="res_emi" class="result-val">?</span></td></tr><tr class="emi-a"><td>Total payable ammount=</td><td><span id="res_emi_a" class="result-val">?</span></td></tr><tr class="emi-i"><td>total payable intrest=</td><td><span id="res_emi_i" class="result-val">?</span></td></tr></table><center><button class="calc-btn" style="background:#4a7ebb" onclick="calcEMI()">Calculate EMI</button></center></div>
         </div>
     </div>
 
-    <!-- RD / SIP tab (4) -->
     <div id="rd-full-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div class="rd-card">
             <div class="rd-title">💰 RD / SIP (ਆਵਰਤੀ ਜਮ੍ਹਾਂ)</div>
             <div class="rd-field">
-                <label>📅 ਮਹੀਨਾਵਾਰ ਕਿਸ਼ਤ</label>
-                <input type="number" id="rd_inst" value="5000" step="100">
+                <label>📅 Monthly Instalment</label>
+                <input type="number" id="rd_inst" value="0" step="100">
             </div>
             <div class="rd-field">
-                <label>📊 ਸਲਾਨਾ ਵਿਆਜ ਦਰ (%)</label>
-                <input type="number" id="rd_rate" value="7.5" step="0.1">
+                <label>📊 Annual Interst(%)</label>
+                <input type="number" id="rd_rate" value="0" step="0.1">
             </div>
             <div class="rd-field">
-                <label>⏱️ ਸਮਾਂ (ਸਾਲ)</label>
-                <input type="number" id="rd_years" value="5" step="0.5">
+                <label>⏱️ Time(Year)</label>
+                <input type="number" id="rd_years" value="0" step="0.5">
             </div>
             <button class="rd-btn" onclick="calcRD()">🔢 Calculate Maturity</button>
             <div class="rd-result">
-                <p><span>ਨਿਵੇਸ਼ ਕੀਤਾ (Invested) :</span> <span id="rd_invested">0</span></p>
-                <p><span>ਪਰਿਪੱਕਤਾ ਰਾਸ਼ੀ (Maturity) :</span> <span id="rd_maturity">0</span></p>
+                <p><span>Invested</span> <span id="rd_invested">0</span></p>
+                <p><span>Maturity</span> <span id="rd_maturity">0</span></p>
             </div>
-            <p style="font-size:14px; text-align:center; color:#5a3e1b;">* ਫਾਰਮੂਲਾ: A = P * ((1+r)^n - 1)/r * (1+r) [ਕਿਸ਼ਤ ਮਹੀਨੇ ਦੇ ਸ਼ੁਰੂ 'ਚ]</p>
+            <p style="font-size:10px; text-align:center; color:#5a3e1b;">* ਫਾਰਮੂਲਾ: A = P * ((1+r)^n - 1)/r * (1+r) [ਕਿਸ਼ਤ ਮਹੀਨੇ ਦੇ ਸ਼ੁਰੂ 'ਚ]</p>
         </div>
     </div>
 
-    <!-- NEW TAB 9: Math Tools (from 01.html) -->
     <div id="math-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
             <table class="math-table">
                 <tr><th colspan="2">Find LCM</th></tr>
-                <tr><td><input type="number" class="lcm-in" value="10" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="20" oninput="runAllMath()"></td></tr>
-                <tr><td><input type="number" class="lcm-in" value="30" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="40" oninput="runAllMath()"></td></tr>
-                <tr><td><input type="number" class="lcm-in" value="50" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="60" oninput="runAllMath()"></td></tr>
-                <tr class="res-row"><td>LCM =</td><td id="lcm-res">600</td></tr>
+                <tr><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td><td><input type="number" class="lcm-in" value="0" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>LCM =</td><td id="lcm-res">0</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2">Find HCF</th></tr>
-                <tr><td><input type="number" id="h1" value="325" oninput="runAllMath()"></td><td><input type="number" id="h2" value="25" oninput="runAllMath()"></td></tr>
-                <tr class="res-row"><td>HCF =</td><td id="hcf-res">25</td></tr>
+                <tr><td><input type="number" id="h1" value="0" oninput="runAllMath()"></td><td><input type="number" id="h2" value="0" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>HCF =</td><td id="hcf-res">0</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2">Find Mode (Remainder)</th></tr>
-                <tr><td><input type="number" id="r1" value="35" oninput="runAllMath()"></td><td><input type="number" id="r2" value="5" oninput="runAllMath()"></td></tr>
+                <tr><td><input type="number" id="r1" value="0" oninput="runAllMath()"></td><td><input type="number" id="r2" value="0" oninput="runAllMath()"></td></tr>
                 <tr class="res-row"><td>Remainder =</td><td id="rem-res">0</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2">Find Log</th></tr>
-                <tr><td>Add a Number</td><td><input type="number" id="log-in" value="100" oninput="runAllMath()"></td></tr>
-                <tr class="res-row"><td>Log (base 10) =</td><td id="log-res">2.0000</td></tr>
+                <tr><td>Add a Number</td><td><input type="number" id="log-in" value="0" oninput="runAllMath()"></td></tr>
+                <tr class="res-row"><td>Log (base 10) =</td><td id="log-res">0.0000</td></tr>
             </table>
         </div>
     </div>
 
-    <!-- NEW TAB 10: Text Utils (from 01.html) -->
-    <div id="text-tab" class="tab-content">
-        <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
-        <div style="max-width:500px; margin:auto;">
-            <table class="math-table">
-                <tr><td class="txt-head">Add Data</td></tr>
-                <tr><td><input type="text" id="t-in" value="what are you doing.." oninput="runText()"></td></tr>
-                <tr><td class="txt-head">Trim</td></tr>
-                <tr><td class="output-text" id="t-trim">what are you doing..</td></tr>
-                <tr><td class="txt-head">UPPER</td></tr>
-                <tr><td class="output-text" id="t-up">WHAT ARE YOU DOING..</td></tr>
-                <tr><td class="txt-head">lower</td></tr>
-                <tr><td class="output-text" id="t-low">what are you doing..</td></tr>
-                <tr><td class="txt-head">Proper Case</td></tr>
-                <tr><td class="output-text" id="t-prop">What Are You Doing..</td></tr>
-            </table>
-        </div>
-    </div>
+<div id="text-tab" class="tab-content">
+    <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
+    <div style="max-width:500px; margin:auto;">
+        <table class="math-table">
+            <tr><td class="txt-head">Add Data</td></tr>
+            <tr>
+                <td>
+                    <input type="text" id="t-in" value="" placeholder="Enter text here..." oninput="runText()">
+                    <div style="margin-top: 10px;">
+                        <button class="calc-btn" style="background:#d32f2f; padding: 5px 15px;" onclick="clearTextAll()">Clear All</button>
+                    </div>
+                </td>
+            </tr>
+            
+            <tr><td class="txt-head">Trim</td></tr>
+            <tr>
+                <td class="output-text">
+                    <div id="t-trim" style="margin-bottom:10px; min-height:1.2em;"></div>
+                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-trim')">Copy</button>
+                </td>
+            </tr>
 
-    <!-- NEW TAB 11: Trig & Roots (from 01.html) with SEC and COT added -->
+            <tr><td class="txt-head">UPPER</td></tr>
+            <tr>
+                <td class="output-text">
+                    <div id="t-up" style="margin-bottom:10px; min-height:1.2em;"></div>
+                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-up')">Copy</button>
+                </td>
+            </tr>
+
+            <tr><td class="txt-head">lower</td></tr>
+            <tr>
+                <td class="output-text">
+                    <div id="t-low" style="margin-bottom:10px; min-height:1.2em;"></div>
+                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-low')">Copy</button>
+                </td>
+            </tr>
+
+            <tr><td class="txt-head">Proper Case</td></tr>
+            <tr>
+                <td class="output-text">
+                    <div id="t-prop" style="margin-bottom:10px; min-height:1.2em;"></div>
+                    <button class="calc-btn" style="background:#4a7ebb; padding: 2px 10px; font-size: 12px;" onclick="copyTxt('t-prop')">Copy</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
     <div id="trig-tab" class="tab-content">
         <div class="back-btn" onclick="showMenu()">← ਬੈਕ</div>
         <div style="max-width:500px; margin:auto;">
@@ -433,33 +440,32 @@
                 <tr><th colspan="2">Find Sin, Cos, Tan, Sec, Cot, Cosec</th></tr>
                 <tr class="blue-in">
                     <td>Number (0-360)</td>
-                    <td><input type="number" id="trig-deg" value="45" oninput="runTrigRoots()"></td>
+                    <td><input type="number" id="trig-deg" value="0" oninput="runTrigRoots()"></td>
                 </tr>
-                <tr class="res-row"><td>sin =</td><td id="s-res">0.7071</td></tr>
-                <tr class="res-row"><td>cos =</td><td id="c-res">0.7071</td></tr>
-                <tr class="res-row"><td>tan =</td><td id="t-res">1.0000</td></tr>
-                <tr class="res-row"><td>cosec =</td><td id="csc-res">1.4142</td></tr>
-                <tr class="res-row"><td>sec =</td><td id="sec-res">1.4142</td></tr>
-                <tr class="res-row"><td>cot =</td><td id="cot-res">1.0000</td></tr>
+                <tr class="res-row"><td>sin =</td><td id="s-res">0.0000</td></tr>
+                <tr class="res-row"><td>cos =</td><td id="c-res">1.0000</td></tr>
+                <tr class="res-row"><td>tan =</td><td id="t-res">0.0000</td></tr>
+                <tr class="res-row"><td>cosec =</td><td id="csc-res">∞</td></tr>
+                <tr class="res-row"><td>sec =</td><td id="sec-res">1.0000</td></tr>
+                <tr class="res-row"><td>cot =</td><td id="cot-res">∞</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2">Square & Cube Roots</th></tr>
-                <tr><td>Number</td><td><input type="number" id="root-base" value="64" oninput="runTrigRoots()"></td></tr>
-                <tr class="res-row"><td>Square Root</td><td id="sq-res">8.0000</td></tr>
-                <tr class="res-row"><td>Cube Root</td><td id="cb-res">4.0000</td></tr>
+                <tr><td>Number</td><td><input type="number" id="root-base" value="0" oninput="runTrigRoots()"></td></tr>
+                <tr class="res-row"><td>Square Root</td><td id="sq-res">0.0000</td></tr>
+                <tr class="res-row"><td>Cube Root</td><td id="cb-res">0.0000</td></tr>
             </table>
 
             <table class="math-table">
                 <tr><th colspan="2" class="res-row" style="color: black;">Find Custom Root (nth)</th></tr>
-                <tr><td>Number</td><td><input type="number" id="cust-num" value="5" oninput="runTrigRoots()"></td></tr>
-                <tr><td>Root Value (n)</td><td><input type="number" id="cust-root" value="3" oninput="runTrigRoots()"></td></tr>
-                <tr class="gold-res"><td>Result =</td><td id="cust-res">1.7100</td></tr>
+                <tr><td>Number</td><td><input type="number" id="cust-num" value="0" oninput="runTrigRoots()"></td></tr>
+                <tr><td>Root Value (n)</td><td><input type="number" id="cust-root" value="0" oninput="runTrigRoots()"></td></tr>
+                <tr class="gold-res"><td>Result =</td><td id="cust-res">0.0000</td></tr>
             </table>
         </div>
     </div>
 
-    <!-- ===== CREDIT FOOTER ===== -->
     <div class="credit-footer">By Raj Kamboj 9465428299</div>
 
     <script>
@@ -517,15 +523,27 @@
         }
 
         function calcDT() {
-            let dob = new Date(document.getElementById('dob').value);
-            let now = new Date(document.getElementById('curr_date').value || new Date());
-            if(!isNaN(dob.getTime())){
+            let dobValue = document.getElementById('dob').value;
+            let dob = dobValue ? new Date(dobValue) : null;
+            let nowValue = document.getElementById('curr_date').value;
+            let now = nowValue ? new Date(nowValue) : new Date();
+            
+            if(dob && !isNaN(dob.getTime())){
                 let y = now.getFullYear() - dob.getFullYear(), m = now.getMonth() - dob.getMonth(), d = now.getDate() - dob.getDate();
                 if(d < 0){ m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
                 if(m < 0){ y--; m += 12; }
                 s('age_result', `${y} Years ${m} Months ${d} Days`);
+            } else {
+                s('age_result', `0 Years 0 Months 0 Days`);
             }
-            s('days_diff', Math.round((new Date(document.getElementById('d_end').value) - new Date(document.getElementById('d_start').value)) / 86400000));
+            
+            let dStartVal = document.getElementById('d_start').value;
+            let dEndVal = document.getElementById('d_end').value;
+            if(dStartVal && dEndVal) {
+                s('days_diff', Math.round((new Date(dEndVal) - new Date(dStartVal)) / 86400000));
+            } else {
+                s('days_diff', '0');
+            }
             
             const fmt = (tot) => { let h = Math.floor(tot/60)%24, m = tot%60, p = h>=12?'PM':'AM'; return `${String(h%12||12).padStart(2,'0')}:${String(m).padStart(2,'0')} ${p}`; };
             let [sh, sm] = (document.getElementById('start_time').value || '0:0').split(':').map(Number);
@@ -536,9 +554,14 @@
             let [bh, bm] = (document.getElementById('sub_time').value || "0:0").split(':').map(Number);
             s('start_time_res', fmt((eh*60+em)-(bh*60+(bm||0))));
 
-            let nd = new Date(document.getElementById('nth_start').value);
-            nd.setDate(nd.getDate() + (parseInt(document.getElementById('nth_add').value) || 0));
-            s('nth_res', nd.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}).replace(/ /g, '-'));
+            let nthStartVal = document.getElementById('nth_start').value;
+            if(nthStartVal) {
+                let nd = new Date(nthStartVal);
+                nd.setDate(nd.getDate() + (parseInt(document.getElementById('nth_add').value) || 0));
+                s('nth_res', nd.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}).replace(/ /g, '-'));
+            } else {
+                s('nth_res', "");
+            }
         }
 
         // SI functions
@@ -557,6 +580,10 @@
         // EMI
         function calcEMI() { 
             let P = v('emi_p'), R = v('emi_r') / (12 * 100), N = v('emi_t') * 12; 
+            if(N === 0 || isNaN(P * R)) {
+                 s('res_emi', "0"); s('res_emi_a', "0"); s('res_emi_i', "0");
+                 return;
+            }
             let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1); 
             s('res_emi', Math.round(emi).toLocaleString()); 
             s('res_emi_a', Math.round(emi * N).toLocaleString()); 
@@ -571,7 +598,7 @@
             let n = years * 12;
             let r_monthly = r_annual / 12;
 
-            if (r_monthly === 0) {
+            if (r_monthly === 0 || n === 0) {
                 let simple = P * n;
                 s('rd_invested', simple.toFixed(0));
                 s('rd_maturity', simple.toFixed(0));
@@ -599,7 +626,7 @@
             // HCF
             let h1 = Math.abs(parseInt(document.getElementById('h1').value)) || 0;
             let h2 = Math.abs(parseInt(document.getElementById('h2').value)) || 0;
-            document.getElementById('hcf-res').innerText = gcd(h1, h2);
+            document.getElementById('hcf-res').innerText = (h1 === 0 && h2 === 0) ? 0 : gcd(h1, h2);
 
             // Remainder
             let r1 = parseInt(document.getElementById('r1').value) || 0;
@@ -608,51 +635,57 @@
 
             // Log
             let lVal = parseFloat(document.getElementById('log-in').value);
-            document.getElementById('log-res').innerText = (lVal > 0) ? Math.log10(lVal).toFixed(4) : "Error";
+            document.getElementById('log-res').innerText = (lVal > 0) ? Math.log10(lVal).toFixed(4) : "0.0000";
         }
 
         function runText() {
-            let val = document.getElementById('t-in').value;
-            document.getElementById('t-trim').innerText = val.trim();
-            document.getElementById('t-up').innerText = val.toUpperCase();
-            document.getElementById('t-low').innerText = val.toLowerCase();
-            document.getElementById('t-prop').innerText = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    let val = document.getElementById('t-in').value;
+    document.getElementById('t-trim').innerText = val.trim();
+    document.getElementById('t-up').innerText = val.toUpperCase();
+    document.getElementById('t-low').innerText = val.toLowerCase();
+    document.getElementById('t-prop').innerText = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
+function copyTxt(id) {
+    let text = document.getElementById(id).innerText;
+    if (!text || text.trim() === "") {
+        alert("Nothing to copy!");
+        return;
+    }
+
+    // Modern Clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Copied: " + text);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    } else {
+        // Fallback for older browsers or non-HTTPS
+        let textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert("Copied: " + text);
+        } catch (err) {
+            alert("Manual copy required");
         }
+        document.body.removeChild(textArea);
+    }
+}
 
-        function runTrigRoots() {
-            // Trig
-            let deg = parseFloat(document.getElementById('trig-deg').value) || 0;
-            let rad = deg * (Math.PI / 180);
-            let s_val = Math.sin(rad), c_val = Math.cos(rad), t_val = Math.tan(rad);
-            
-            // Calculate all trig functions
-            document.getElementById('s-res').innerText = s_val.toFixed(4);
-            document.getElementById('c-res').innerText = c_val.toFixed(4);
-            document.getElementById('t-res').innerText = Math.abs(t_val) > 1e10 ? "∞" : t_val.toFixed(4);
-            
-            // Cosecant (csc)
-            document.getElementById('csc-res').innerText = Math.abs(s_val) < 1e-4 ? "∞" : (1/s_val).toFixed(4);
-            
-            // Secant (sec) - NEW
-            document.getElementById('sec-res').innerText = Math.abs(c_val) < 1e-4 ? "∞" : (1/c_val).toFixed(4);
-            
-            // Cotangent (cot) - NEW
-            document.getElementById('cot-res').innerText = (Math.abs(t_val) < 1e-4 || Math.abs(t_val) > 1e10) ? "∞" : (1/t_val).toFixed(4);
-
-            // Std Roots
-            let rb = parseFloat(document.getElementById('root-base').value) || 0;
-            document.getElementById('sq-res').innerText = rb >= 0 ? Math.sqrt(rb).toFixed(4) : "Error";
-            document.getElementById('cb-res').innerText = Math.cbrt(rb).toFixed(4);
-
-            // Custom Root
-            let cn = parseFloat(document.getElementById('cust-num').value) || 0;
-            let cr = parseFloat(document.getElementById('cust-root').value) || 1;
-            document.getElementById('cust-res').innerText = (cn < 0 && cr % 2 === 0) ? "Error" : Math.pow(cn, 1/cr).toFixed(4);
-        }
+function clearTextAll() {
+    document.getElementById('t-in').value = "";
+    runText(); // This will clear all output boxes via the logic above
+}
 
         // On load: set current date and compute default values
         window.onload = () => { 
-            if (document.getElementById('curr_date')) document.getElementById('curr_date').valueAsDate = new Date();
+            // We set it to null or empty for "all 0" request, but usually current date is better UX. 
+            // Setting to empty as requested.
+            if (document.getElementById('curr_date')) document.getElementById('curr_date').value = "";
             calcRD();
             runAllMath();
             runText();
